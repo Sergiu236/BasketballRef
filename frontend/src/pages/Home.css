@@ -1,0 +1,72 @@
+/* src/pages/Home.css */
+
+.home-container {
+  min-height: 100vh;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f2f4f7 0%, #e0e7ff 100%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Top bar with search/filter/sort + new generate button on left */
+.top-controls {
+  display: flex;
+  justify-content: flex-end; /* or space-between if you want generate on far left */
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Move generate button to the left */
+.generate-button {
+  margin-right: auto; /* push everything else to the right */
+  background-color: #ffbf00; /* bright gold color */
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: 0.3s ease;
+}
+
+.generate-button:hover {
+  background-color: #ffc800;
+  transform: translateY(-1px);
+}
+
+.control-select,
+.control-input {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background: #ffffffdd;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.control-select:hover,
+.control-input:hover {
+  background: #fff;
+  transform: translateY(-1px);
+}
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: flex-start;
+}
+
+.top-controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+/* If you want them more spread out, you could do: */
+.top-controls select {
+  min-width: 100px;
+}
+

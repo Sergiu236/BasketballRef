@@ -1,0 +1,111 @@
+/* src/components/RefereeCard.css */
+
+/* CARD LAYOUT */
+.referee-card {
+  position: relative;
+  width: 220px;
+  min-height: 320px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  margin: 12px;
+  padding: 16px 16px 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.referee-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* PHOTO */
+.referee-photo {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 8px;
+  border: 3px solid #eee;
+}
+
+/* TEXT STYLES */
+.referee-name {
+  font-size: 1.1rem;
+  margin: 0.5rem 0 0.3rem;
+}
+
+.referee-league {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 0.3rem;
+}
+
+.referee-age,
+.referee-grade {
+  font-size: 0.85rem;
+  color: #555;
+  margin: 0.1rem 0;
+}
+
+/* BADGE (universal) */
+.badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 1.1rem; /* icon size */
+  padding: 4px;
+  border-radius: 50%;
+  color: #fff;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* TIER COLORS */
+.badge-best {
+  background-color: gold;
+  color: #000; 
+}
+.badge-worst {
+  background-color: firebrick;
+}
+.badge-silver {
+  background-color: silver;
+  color: #333;
+}
+.badge-bronze {
+  background-color: #cd7f32;  /* a "bronze" color */
+}
+
+/* BUTTONS */
+.card-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+.card-buttons button {
+  background-color: #eee;
+  border: none;
+  outline: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.edit-button:hover {
+  background-color: #007BFF;
+  color: #fff;
+}
+
+.delete-button:hover {
+  background-color: #DC3545;
+  color: #fff;
+}

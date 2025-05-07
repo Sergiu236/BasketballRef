@@ -1,0 +1,119 @@
+/* src/pages/RefereeDetails.css */
+
+/* Container for the whole page */
+.referee-details-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    background: #ffffff;
+    min-height: 100vh; /* So it spans the screen */
+  }
+  
+  /* Circle photo at the top */
+  .referee-photo {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+    border: 3px solid #bfa2d8; /* Adjust color to your preference */
+  }
+  
+  /* Big grey box with the referee's name */
+  .ref-name-box {
+  background: linear-gradient(90deg, #bfa2d8, #e9d8fd);
+  color: #2c2c54;
+  font-size: 2rem;
+  font-weight: 700;
+  text-transform: capitalize;
+  padding: 0.75rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin-bottom: 2rem;
+}
+
+.ref-name-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+  
+  /* The grid of fields: 2 columns, 4 rows */
+  .fields-container {
+    display: grid;
+    grid-template-columns: repeat(2, 240px);
+    grid-template-rows: auto auto auto auto;
+    gap: 1.5rem;
+  }
+  
+  /* Each field box (for first name, last name, etc.) */
+  .field {
+    display: flex;
+    flex-direction: column;
+    background-color: #f2f2f2;
+    border-radius: 8px;
+    padding: 1rem;
+    position: relative;
+  }
+  
+  .field label {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #444;
+  }
+  
+  .input-wrapper {
+    position: relative;
+  }
+  
+  .field input {
+    width: 100%;
+    padding: 0.5rem 2rem 0.5rem 0.5rem;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    background-color: #fff;
+  }
+  
+  .clear-icon {
+    position: absolute;
+    right: 0.5rem;
+    top: 0.6rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #888;
+    user-select: none;
+  }
+  
+  /* The bottom-right rectangle:
+     We'll position it in row 4, col 2 (the last cell).
+     We'll give it a bigger shape. 
+  */
+  .big-rectangle {
+    grid-column: 2; /* 2nd column */
+    grid-row: 4;    /* 4th row */
+    background-color: #e9e3f1;
+    border-radius: 8px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  /* Inside the rectangle, we have T1 vs T2 label and the date input. */
+  .match-info label {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  .match-info input {
+    width: 100%;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 4px;
+    margin-top: 0.5rem;
+  }
+  

@@ -1,0 +1,50 @@
+/* src/pages/StatisticsPage.css */
+
+.statistics-page-container {
+    max-width: 800px;
+    margin: 0 auto; /* center horizontally */
+    padding: 1rem;
+  }
+  
+  .stats-title {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+  
+  .chart-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 1.5rem;
+  }
+  
+  .chart-btn {
+    background-color: #ddd;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    color: #333;
+    font-weight: 500;
+    transition: background-color 0.2s;
+  }
+  
+  .chart-btn:hover {
+    background-color: #ccc;
+  }
+  
+  .chart-btn.active {
+    background-color: #007BFF;
+    color: #fff;
+  }
+  
+  .chart-wrapper {
+    width: 100%;
+    height: 400px;
+    background-color: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 1rem;
+  }
+  

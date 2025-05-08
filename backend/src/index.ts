@@ -61,12 +61,18 @@ AppDataSource.initialize()
     console.log('✅ DataSource initialized');
 
     // 3a) Routes (imported late so controllers see a ready DataSource)
-    const [{ default: refereesRouter }, { default: gamesRouter }] = await Promise.all([
+    const [
+      { default: refereesRouter }, 
+      { default: gamesRouter },
+      { default: statisticsRouter }
+    ] = await Promise.all([
       import('./routes/refereesRoutes'),
       import('./routes/gamesRoutes'),
+      import('./routes/statisticsRoutes'),
     ]);
     app.use('/api/referees', refereesRouter);
     app.use('/api/games', gamesRouter);
+    app.use('/api/statistics', statisticsRouter);
     app.use('/api/files',     fileRoutes);   // already imported above
 
     // 3b) HTTP + Socket.io server

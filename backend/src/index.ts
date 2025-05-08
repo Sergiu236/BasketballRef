@@ -95,14 +95,23 @@ AppDataSource.initialize()
 
     generatorWorker.on('message', async (msg: any) => {
       if (msg.type === 'GENERATED_REFEREE') {
-        const { Referee } = await import('./entities/Referee');
-        const repo = AppDataSource.getRepository(Referee);
-        const newRef = repo.create(msg.payload);
+        try {
+          const { Referee } = await import('./entities/Referee');
+          const repo = AppDataSource.getRepository(Referee);
+          // Create a new referee entity from the payload without an ID
+          const newRef = repo.create(msg.payload);
 
-        performOperation(async () => {
-          const saved = await repo.save(newRef);
-          broadcastEvent('refereeCreated', saved);
-        });
+          performOperation(async () => {
+            try {
+              const saved = await repo.save(newRef);
+              broadcastEvent('refereeCreated', saved);
+            } catch (error) {
+              console.error('Error saving generated referee:', error);
+            }
+          });
+        } catch (error) {
+          console.error('Error processing generated referee:', error);
+        }
       }
     });
 

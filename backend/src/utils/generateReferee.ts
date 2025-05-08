@@ -39,9 +39,8 @@ const leagueTeams = {
  * generateRandomReferee
  * Creates a brand-new referee with random but realistic data
  */
-export function generateRandomReferee(pool: Referee[]): Referee {
-  // Generate random fields
-  const id = generateUniqueId();
+export function generateRandomReferee(pool: Referee[]): Omit<Referee, 'id'> {
+  // Generate random fields - remove id generation
   const firstName = possibleFirstNames[Math.floor(Math.random() * possibleFirstNames.length)];
   const lastName = possibleLastNames[Math.floor(Math.random() * possibleLastNames.length)];
   
@@ -58,16 +57,15 @@ export function generateRandomReferee(pool: Referee[]): Referee {
   const age = randomInt(20, 50);
   const refereedGames = randomInt(30, 200);
 
-  // Generate dates
+  // Generate dates - Use actual Date objects
   const now = new Date();
-  const promovationDate = formatDate(randomFutureDate(now, 2)); // Within next 2 years
-  const matchDate = formatDate(randomFutureDate(now, 2)); // Within next 2 years
+  const promovationDate = randomFutureDate(now, 2); // Within next 2 years
+  const matchDate = randomFutureDate(now, 2); // Within next 2 years
 
   // Random photo (using a placeholder service)
-  const photo = `https://picsum.photos/200/200?random=${id}`;
+  const photo = `https://picsum.photos/200/200?random=${Math.floor(Math.random() * 1000)}`;
 
   return {
-    id,
     firstName,
     lastName,
     league,

@@ -134,8 +134,14 @@ export const deleteReferee = async (req: Request, res: Response) => {
     await performOperation(async () => {
       const ref = await repo.findOneBy({ id: +req.params.id });
       if (!ref) throw new Error('Referee not found');
+      
+      // Store the ID before removal since TypeORM's remove() clears the ID
+      const refToEmit = { ...ref };
+      
       await repo.remove(ref);
-      broadcastEvent('refereeDeleted', ref);
+      
+      // Broadcast using the copy with preserved ID
+      broadcastEvent('refereeDeleted', refToEmit);
     });
     res.status(204).send();
   } catch (err: any) {
@@ -166,8 +172,10 @@ export const syncController = async (req: Request, res: Response) => {
         } else if (type === 'delete') {
           const existing = await repo.findOneBy({ id: payload.id });
           if (existing) {
+            // Store a copy before deletion to preserve ID
+            const existingCopy = { ...existing };
             await repo.remove(existing);
-            broadcastEvent('refereeDeleted', existing);
+            broadcastEvent('refereeDeleted', existingCopy);
           }
         } else if (type === 'update' || type === 'patch') {
           const existing = await repo.findOneBy({ id: payload.id });

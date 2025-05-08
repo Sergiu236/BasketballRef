@@ -2,118 +2,146 @@
 
 /* Container for the whole page */
 .referee-details-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem;
-    background: #ffffff;
-    min-height: 100vh; /* So it spans the screen */
-  }
-  
-  /* Circle photo at the top */
-  .referee-photo {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 50%;
-    margin-bottom: 1rem;
-    border: 3px solid #bfa2d8; /* Adjust color to your preference */
-  }
-  
-  /* Big grey box with the referee's name */
-  .ref-name-box {
-  background: linear-gradient(90deg, #bfa2d8, #e9d8fd);
-  color: #2c2c54;
-  font-size: 2rem;
-  font-weight: 700;
-  text-transform: capitalize;
-  padding: 0.75rem 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  margin-bottom: 2rem;
+  position: relative;
+  padding: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-bottom: 60px; /* Add more padding at the bottom for games section */
 }
 
-.ref-name-box:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+.details-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 250px;
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  border-radius: 10px 10px 0 0;
+  z-index: -1;
 }
 
-  
-  /* The grid of fields: 2 columns, 4 rows */
+/* Circle photo at the top */
+.referee-photo {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto 20px;
+  border: 5px solid white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Big grey box with the referee's name */
+.ref-name-box {
+  background-color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* The grid of fields: 2 columns, 4 rows */
+.fields-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px; /* Add more margin to separate from games section */
+}
+
+/* Each field box (for first name, last name, etc.) */
+.field {
+  margin-bottom: 15px;
+}
+
+.field label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #666;
+}
+
+.input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.input-wrapper input {
+  width: 100%;
+  padding: 10px 30px 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  color: #333;
+  background-color: #f9f9f9;
+}
+
+.clear-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+  cursor: pointer;
+  font-size: 16px;
+  display: none;
+}
+
+.input-wrapper:hover .clear-icon {
+  display: block;
+}
+
+/* The bottom-right rectangle:
+   We'll position it in row 4, col 2 (the last cell).
+   We'll give it a bigger shape. 
+*/
+.big-rectangle {
+  grid-column: 1 / -1;
+  background-color: #f5f8fa;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 10px;
+  border: 1px dashed #ccd6dd;
+}
+
+.match-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.match-info label {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+}
+
+.match-info input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  color: #333;
+  text-align: center;
+  margin-top: 5px;
+}
+
+@media (max-width: 768px) {
   .fields-container {
-    display: grid;
-    grid-template-columns: repeat(2, 240px);
-    grid-template-rows: auto auto auto auto;
-    gap: 1.5rem;
+    grid-template-columns: 1fr;
   }
-  
-  /* Each field box (for first name, last name, etc.) */
-  .field {
-    display: flex;
-    flex-direction: column;
-    background-color: #f2f2f2;
-    border-radius: 8px;
-    padding: 1rem;
-    position: relative;
-  }
-  
-  .field label {
-    margin-bottom: 0.5rem;
-    font-weight: bold;
-    color: #444;
-  }
-  
-  .input-wrapper {
-    position: relative;
-  }
-  
-  .field input {
-    width: 100%;
-    padding: 0.5rem 2rem 0.5rem 0.5rem;
-    border: none;
-    outline: none;
-    border-radius: 4px;
-    background-color: #fff;
-  }
-  
-  .clear-icon {
-    position: absolute;
-    right: 0.5rem;
-    top: 0.6rem;
-    cursor: pointer;
-    font-size: 0.9rem;
-    color: #888;
-    user-select: none;
-  }
-  
-  /* The bottom-right rectangle:
-     We'll position it in row 4, col 2 (the last cell).
-     We'll give it a bigger shape. 
-  */
-  .big-rectangle {
-    grid-column: 2; /* 2nd column */
-    grid-row: 4;    /* 4th row */
-    background-color: #e9e3f1;
-    border-radius: 8px;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  
-  /* Inside the rectangle, we have T1 vs T2 label and the date input. */
-  .match-info label {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-  }
-  
-  .match-info input {
-    width: 100%;
-    padding: 0.5rem;
-    border: none;
-    border-radius: 4px;
-    margin-top: 0.5rem;
-  }
+}
   

@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { RefereeContext } from '../context/RefereeContext';
+import RefereeGames from '../components/RefereeGames';
 import './RefereeDetails.css';
 
 const RefereeDetails: React.FC = () => {
@@ -80,6 +81,9 @@ const RefereeDetails: React.FC = () => {
           </div>
         </div>
       </div>
+      
+      {/* Add the RefereeGames component to display games for this referee */}
+      <RefereeGames refereeId={refereeId} />
     </div>
   );
 };

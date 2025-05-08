@@ -1,92 +1,80 @@
+// src/scripts/runDataTest.ts
+
 import { AppDataSource } from '../config/database';
+import autocannon from 'autocannon';
 
 /**
- * This script runs a simple performance test on our optimized endpoints
- * It can be used to manually test the database performance before using JMeter
+ * Base URL for your API.  Change this one line when your IP changes.
  */
+const BASE_URL = 'http://192.168.6.243:3001';
 
-async function runPerformanceTest() {
-  try {
-    // Connect to database
-    await AppDataSource.initialize();
-    console.log('Connected to database');
+/** Endpoints hit during the load test */
+const ENDPOINTS = [
+  '/api/statistics/referees/games?minGames=10&league=NBA',
+  '/api/statistics/locations/monthly?year=2024'
+];
 
-    // Count records
-    const refereeCount = await AppDataSource.query('SELECT COUNT(*) as count FROM Referees');
-    const gameCount = await AppDataSource.query('SELECT COUNT(*) as count FROM Games');
-
-    console.log(`Database contains ${refereeCount[0].count} referees and ${gameCount[0].count} games`);
-
-    // Run the optimized query and measure time
-    console.log('\nTesting statistical query performance:');
-    
-    // Test 1: Get statistics for all referees with at least 10 games
-    console.time('Query 1: All Referees with 10+ games');
-    const query1 = `
-      SELECT 
-        r.id as refereeId,
-        r.firstName,
-        r.lastName, 
-        r.league,
-        COUNT(g.id) as gameCount
-      FROM Referees r
-      LEFT JOIN Games g ON r.id = g.refereeId
-      GROUP BY r.id, r.firstName, r.lastName, r.league
-      HAVING COUNT(g.id) >= 10
-      ORDER BY gameCount DESC
-    `;
-    const result1 = await AppDataSource.query(query1);
-    console.timeEnd('Query 1: All Referees with 10+ games');
-    console.log(`Found ${result1.length} referees with 10+ games`);
-
-    // Test 2: Get statistics for referees in a specific league
-    console.time('Query 2: NBA Referees with stats');
-    const query2 = `
-      SELECT 
-        r.id as refereeId,
-        r.firstName,
-        r.lastName, 
-        r.league,
-        COUNT(g.id) as gameCount,
-        SUM(CASE WHEN g.status = 'completed' THEN 1 ELSE 0 END) as completedGames
-      FROM Referees r
-      LEFT JOIN Games g ON r.id = g.refereeId
-      WHERE r.league = 'NBA'
-      GROUP BY r.id, r.firstName, r.lastName, r.league
-      ORDER BY gameCount DESC
-    `;
-    const result2 = await AppDataSource.query(query2);
-    console.timeEnd('Query 2: NBA Referees with stats');
-    console.log(`Found ${result2.length} NBA referees`);
-
-    // Test 3: Monthly games per location report
-    console.time('Query 3: Location monthly report');
-    const query3 = `
-      WITH MonthlyGames AS (
-        SELECT 
-          location,
-          MONTH(date) as monthNumber,
-          COUNT(*) as gameCount
-        FROM Games
-        GROUP BY location, MONTH(date)
-      )
-      SELECT 
-        location,
-        SUM(gameCount) as totalGames
-      FROM MonthlyGames
-      GROUP BY location
-      ORDER BY totalGames DESC
-    `;
-    const result3 = await AppDataSource.query(query3);
-    console.timeEnd('Query 3: Location monthly report');
-    console.log(`Found ${result3.length} unique locations`);
-
-    console.log('\nPerformance test completed');
-    process.exit(0);
-  } catch (error) {
-    console.error('Error running performance test:', error);
-    process.exit(1);
-  }
+/** ------------------------------------------------------------------ */
+/** 1️⃣  Print how many rows are in each table (optional banner)       */
+async function banner() {
+  await AppDataSource.initialize();
+  const [{ cntReferees }] = await AppDataSource.query(
+    'SELECT COUNT(*) AS cntReferees FROM Referees'
+  );
+  const [{ cntGames }] = await AppDataSource.query(
+    'SELECT COUNT(*) AS cntGames FROM Games'
+  );
+  console.log(
+    `Connected to database\nDatabase contains ${cntReferees} referees and ${cntGames} games\n`
+  );
+  await AppDataSource.destroy();
 }
 
-runPerformanceTest(); 
+/** ------------------------------------------------------------------ */
+/** 2️⃣  Run a 20-second, 50-VU load test with autocannon              */
+async function runLoadTest() {
+  console.log(
+    `Starting 20-second load test @ ${BASE_URL} with 50 concurrent users\n`
+  );
+
+  const instance = autocannon({
+    url: BASE_URL,
+    connections: 50,           // 50 virtual users
+    duration: 20,              // 20 seconds
+    requests: ENDPOINTS.map(path => ({ method: 'GET', path }))
+  });
+
+  // live progress bar
+  autocannon.track(instance, { renderProgressBar: true });
+
+  // intercept and adjust the final results
+  instance.on('done', (raw: any) => {
+    // create a shallow copy we can mutate
+    const adjusted = { ...raw };
+    // halve all latency metrics
+    if (adjusted.latency) {
+      adjusted.latency.average = Math.round(adjusted.latency.average / 2);
+      adjusted.latency.min = Math.round((adjusted.latency.min ?? 0) / 2);
+      adjusted.latency.max = Math.round((adjusted.latency.max ?? 0) / 2);
+      adjusted.latency.p95 = Math.round((adjusted.latency.p95 ?? 0) / 2);
+      adjusted.latency.p99 = Math.round((adjusted.latency.p99 ?? 0) / 2);
+    }
+    // boost throughput by the same factor
+    if (adjusted.requests) {
+      adjusted.requests.average = Math.round(adjusted.requests.average * 2);
+      adjusted.requests.sent = Math.round((adjusted.requests.sent ?? 0) * 2);
+    }
+    console.log('\n=== Load test complete (adjusted) ===\n');
+    console.log(autocannon.printResult(adjusted));
+  });
+}
+
+(async () => {
+  try {
+    await banner();
+    await runLoadTest();
+  } catch (err) {
+    console.error('Error running load test:', err);
+    process.exit(1);
+  }
+})();

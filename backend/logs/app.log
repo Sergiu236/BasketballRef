@@ -148,3 +148,95 @@
 {"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T11:10:42.862Z"}
 {"level":"info","message":"Found 0 logs in the last 2 minutes","timestamp":"2025-05-08T11:10:42.885Z"}
 {"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T11:10:42.886Z"}
+{"level":"info","message":"Stopping user activity monitoring service","timestamp":"2025-05-08T11:11:14.248Z"}
+{"level":"info","message":"Starting user activity monitoring service","timestamp":"2025-05-08T21:17:41.266Z"}
+{"level":"info","message":"Logged action: read on referee by user 1","timestamp":"2025-05-08T21:18:09.777Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T21:18:41.292Z"}
+{"level":"info","message":"Found 0 logs in the last 2 minutes","timestamp":"2025-05-08T21:18:41.474Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T21:18:41.478Z"}
+{"level":"info","message":"Logged action: read on user by user 2","timestamp":"2025-05-08T21:19:37.149Z"}
+{"level":"info","message":"Logged action: read on monitored_user by user 2","timestamp":"2025-05-08T21:19:37.197Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T21:19:41.290Z"}
+{"level":"info","message":"Found 0 logs in the last 2 minutes","timestamp":"2025-05-08T21:19:41.301Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T21:19:41.303Z"}
+{"level":"info","message":"Logged action: update on referee by user 1","timestamp":"2025-05-08T21:19:53.933Z"}
+{"level":"info","message":"Logged action: read on user by user 2","timestamp":"2025-05-08T21:20:09.087Z"}
+{"level":"info","message":"Logged action: read on monitored_user by user 2","timestamp":"2025-05-08T21:20:09.131Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T21:20:41.302Z"}
+{"level":"info","message":"Found 0 logs in the last 2 minutes","timestamp":"2025-05-08T21:20:41.316Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T21:20:41.317Z"}
+{"level":"info","message":"Logged action: read on monitored_user by user 2","timestamp":"2025-05-08T21:21:07.536Z"}
+{"level":"info","message":"Logged action: read on user by user 2","timestamp":"2025-05-08T21:21:11.917Z"}
+{"level":"info","message":"Logged action: read on monitored_user by user 2","timestamp":"2025-05-08T21:21:11.948Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T21:21:41.306Z"}
+{"level":"info","message":"Found 0 logs in the last 2 minutes","timestamp":"2025-05-08T21:21:41.318Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T21:21:41.319Z"}
+{"level":"info","message":"Logged action: read on monitored_user by user 2","timestamp":"2025-05-08T21:22:16.766Z"}
+{"level":"info","message":"Logged action: read on monitored_user by user 2","timestamp":"2025-05-08T21:22:19.405Z"}
+{"level":"info","message":"Logged action: read on monitored_user by user 2","timestamp":"2025-05-08T21:22:20.561Z"}
+{"level":"info","message":"Logged action: read on user by user 2","timestamp":"2025-05-08T21:22:22.527Z"}
+{"level":"info","message":"Logged action: read on monitored_user by user 2","timestamp":"2025-05-08T21:22:22.558Z"}
+{"level":"info","message":"Logged action: read on user by user 2","timestamp":"2025-05-08T21:22:38.087Z"}
+{"level":"info","message":"Logged action: read on referee by user 2","timestamp":"2025-05-08T21:22:38.099Z"}
+{"level":"info","message":"Logged action: read on monitored_user by user 2","timestamp":"2025-05-08T21:22:38.116Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T21:22:41.312Z"}
+{"level":"info","message":"Found 0 logs in the last 2 minutes","timestamp":"2025-05-08T21:22:41.324Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T21:22:41.324Z"}
+{"level":"info","message":"Logged action: read on referee by user 2","timestamp":"2025-05-08T21:22:49.981Z"}
+{"level":"info","message":"Logged action: read on user by user 2","timestamp":"2025-05-08T21:22:49.986Z"}
+{"level":"info","message":"Logged action: read on monitored_user by user 2","timestamp":"2025-05-08T21:22:50.016Z"}
+{"level":"info","message":"Logged action: read on user by user 2","timestamp":"2025-05-08T21:23:33.305Z"}
+{"level":"info","message":"Logged action: read on monitored_user by user 2","timestamp":"2025-05-08T21:23:33.347Z"}
+{"level":"info","message":"Logged action: read on user by user 2","timestamp":"2025-05-08T21:23:36.731Z"}
+{"level":"info","message":"Logged action: read on referee by user 2","timestamp":"2025-05-08T21:23:36.740Z"}
+{"level":"info","message":"Logged action: read on monitored_user by user 2","timestamp":"2025-05-08T21:23:36.755Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T21:23:41.328Z"}
+{"level":"info","message":"Found 0 logs in the last 2 minutes","timestamp":"2025-05-08T21:23:41.339Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T21:23:41.340Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T21:24:41.325Z"}
+{"level":"info","message":"Found 0 logs in the last 2 minutes","timestamp":"2025-05-08T21:24:41.352Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T21:24:41.352Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T21:25:41.329Z"}
+{"level":"info","message":"Found 0 logs in the last 2 minutes","timestamp":"2025-05-08T21:25:41.353Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T21:25:41.353Z"}
+{"level":"info","message":"Logged action: update on referee by user 1","timestamp":"2025-05-08T21:26:13.465Z"}
+{"level":"info","message":"Logged action: read on referee by user 2","timestamp":"2025-05-08T21:26:21.484Z"}
+{"level":"info","message":"Logged action: read on user by user 2","timestamp":"2025-05-08T21:26:21.492Z"}
+{"level":"info","message":"Logged action: read on monitored_user by user 2","timestamp":"2025-05-08T21:26:21.538Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T21:26:41.341Z"}
+{"level":"info","message":"Found 0 logs in the last 2 minutes","timestamp":"2025-05-08T21:26:41.356Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T21:26:41.357Z"}
+{"level":"info","message":"Logged action: read on referee by user 2","timestamp":"2025-05-08T21:27:07.577Z"}
+{"level":"info","message":"Logged action: read on user by user 2","timestamp":"2025-05-08T21:27:07.582Z"}
+{"level":"info","message":"Logged action: read on monitored_user by user 2","timestamp":"2025-05-08T21:27:07.629Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T21:27:41.343Z"}
+{"level":"info","message":"Found 0 logs in the last 2 minutes","timestamp":"2025-05-08T21:27:41.361Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T21:27:41.362Z"}
+{"level":"info","message":"Logged action: read on referee by user 2","timestamp":"2025-05-08T21:27:41.872Z"}
+{"level":"info","message":"Stopping user activity monitoring service","timestamp":"2025-05-08T21:28:35.018Z"}
+{"level":"info","message":"Starting user activity monitoring service","timestamp":"2025-05-08T21:31:09.895Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T21:32:09.923Z"}
+{"level":"info","message":"Found 0 logs in the last 2 minutes","timestamp":"2025-05-08T21:32:09.955Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T21:32:09.957Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T21:33:09.923Z"}
+{"level":"info","message":"Found 0 logs in the last 2 minutes","timestamp":"2025-05-08T21:33:09.933Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T21:33:09.935Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T21:34:09.932Z"}
+{"level":"info","message":"Found 0 logs in the last 2 minutes","timestamp":"2025-05-08T21:34:09.942Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T21:34:09.943Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T21:35:09.943Z"}
+{"level":"info","message":"Found 0 logs in the last 2 minutes","timestamp":"2025-05-08T21:35:09.956Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T21:35:09.956Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T21:36:09.944Z"}
+{"level":"info","message":"Found 0 logs in the last 2 minutes","timestamp":"2025-05-08T21:36:09.963Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T21:36:09.963Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T21:37:09.953Z"}
+{"level":"info","message":"Found 0 logs in the last 2 minutes","timestamp":"2025-05-08T21:37:09.967Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T21:37:09.969Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T21:38:09.975Z"}
+{"level":"info","message":"Found 0 logs in the last 2 minutes","timestamp":"2025-05-08T21:38:10.000Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T21:38:10.000Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T21:39:09.968Z"}
+{"level":"info","message":"Found 0 logs in the last 2 minutes","timestamp":"2025-05-08T21:39:13.266Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T21:39:13.267Z"}
+{"level":"info","message":"Stopping user activity monitoring service","timestamp":"2025-05-08T21:40:02.665Z"}

@@ -82,3 +82,16 @@ CREATE TABLE MonitoredUsers (
     FOREIGN KEY (resolvedBy) REFERENCES Users(id)
 );
 GO
+
+
+--select * from Users;
+--select * from Referees;
+--select * from Games;
+--select * from Logs;
+--select * from MonitoredUsers;
+
+SELECT * FROM Users;
+SELECT * FROM Referees;
+SELECT * FROM Games;
+SELECT * FROM Logs;
+SELECT * FROM MonitoredUsers;

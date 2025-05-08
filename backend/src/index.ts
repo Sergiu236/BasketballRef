@@ -10,6 +10,10 @@ import { AppDataSource } from './config/database';
 import { initWebSocket, broadcastEvent, attachGeneratorWorker } from './websocket/websocketServer';
 import fileRoutes from './routes/fileRoutes';
 import config from './config';
+import { MonitoringService } from './services/monitoringService';
+
+// Re-export the AppDataSource for use in services
+export const dataSource = AppDataSource;
 
 // ──────────────────────────────────────────────────────────────────────────────
 // 1) Express instance (exported for tests / other modules)
@@ -64,16 +68,22 @@ AppDataSource.initialize()
     const [
       { default: refereesRouter }, 
       { default: gamesRouter },
-      { default: statisticsRouter }
+      { default: statisticsRouter },
+      { default: authRouter },
+      { default: monitoringRouter }
     ] = await Promise.all([
       import('./routes/refereesRoutes'),
       import('./routes/gamesRoutes'),
       import('./routes/statisticsRoutes'),
+      import('./routes/authRoutes'),
+      import('./routes/monitoringRoutes'),
     ]);
     app.use('/api/referees', refereesRouter);
     app.use('/api/games', gamesRouter);
     app.use('/api/statistics', statisticsRouter);
     app.use('/api/files',     fileRoutes);   // already imported above
+    app.use('/api/auth',      authRouter);
+    app.use('/api/monitoring', monitoringRouter);
 
     // 3b) HTTP + Socket.io server
     const httpServer = http.createServer(app);
@@ -106,12 +116,28 @@ AppDataSource.initialize()
         try {
           const { Referee } = await import('./entities/Referee');
           const repo = AppDataSource.getRepository(Referee);
+          
+          // Log details of the generated referee including userId
+          console.log(`Processing generated referee with userId: ${msg.payload.userId}`);
+          
           // Create a new referee entity from the payload without an ID
-          const newRef = repo.create(msg.payload);
+          // Ensure userId is included from the payload
+          const newRef = repo.create({
+            ...msg.payload,
+            userId: msg.payload.userId
+          });
 
           performOperation(async () => {
             try {
               const saved = await repo.save(newRef);
+              // Check if saved is an array (bulk save) or single entity
+              if (Array.isArray(saved)) {
+                console.log(`Saved ${saved.length} referees`);
+              } else {
+                // Use type assertion to tell TypeScript what type saved is
+                const referee = saved as Referee;
+                console.log(`Saved referee with ID: ${referee.id}, assigned to userId: ${referee.userId}`);
+              }
               broadcastEvent('refereeCreated', saved);
             } catch (error) {
               console.error('Error saving generated referee:', error);
@@ -127,11 +153,19 @@ AppDataSource.initialize()
       console.error('Worker thread error:', err);
     });
 
+    // Start the monitoring service
+    MonitoringService.startMonitoring(60000); // Check every minute
+    console.log('✅ User activity monitoring service started');
+
     // ────────────────────────────────────────────────────────────────────────
     // 3d) Graceful shutdown
     // ────────────────────────────────────────────────────────────────────────
     function shutdown() {
       console.log('\nGraceful shutdown initiated...');
+
+      // Stop the monitoring service
+      MonitoringService.stopMonitoring();
+      console.log('User activity monitoring service stopped.');
 
       generatorWorker.postMessage('STOP_GENERATOR');
       generatorWorker.terminate().then(() => {

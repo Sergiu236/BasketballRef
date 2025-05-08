@@ -4,6 +4,7 @@ import React, { createContext, useState, useEffect, ReactNode } from 'react';
 import { Referee } from '../data/referees';
 import { useWebSocket } from '../websocket/useWebSocket';
 import config from '../config';
+import { authHeader } from '../services/authService';
 
 interface RefereeContextType {
   // We'll store the loaded referees (pages combined) for infinite scroll
@@ -78,7 +79,12 @@ export const RefereeProvider: React.FC<Props> = ({ children }) => {
     setIsLoading(true);
     try {
       const res = await fetch(
-        `${config.API_URL}/api/referees?page=${page}&limit=${limit}`
+        `${config.API_URL}/api/referees?page=${page}&limit=${limit}`,
+        {
+          headers: {
+            ...authHeader()
+          }
+        }
       );
       if (!res.ok) {
         console.error('Pagination load failed');
@@ -179,7 +185,10 @@ export const RefereeProvider: React.FC<Props> = ({ children }) => {
     try {
       const resp = await fetch(`${config.API_URL}/api/referees/sync`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          ...authHeader()
+        },
         body: JSON.stringify({ operations: pendingOperations }),
       });
       if (resp.ok) {
@@ -187,7 +196,14 @@ export const RefereeProvider: React.FC<Props> = ({ children }) => {
         // Refresh the current data (refreshing only the current page)
         const currentPage = page;
         setPage(1);
-        const res = await fetch(`${config.API_URL}/api/referees?page=1&limit=${limit}`);
+        const res = await fetch(
+          `${config.API_URL}/api/referees?page=1&limit=${limit}`,
+          {
+            headers: {
+              ...authHeader()
+            }
+          }
+        );
         if (res.ok) {
           const { data, hasMore: more } = await res.json();
           setReferees(data);
@@ -216,7 +232,10 @@ export const RefereeProvider: React.FC<Props> = ({ children }) => {
     try {
       const res = await fetch(`${config.API_URL}/api/referees`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          ...authHeader()
+        },
         body: JSON.stringify(newReferee),
       });
       if (!res.ok) {
@@ -239,6 +258,9 @@ export const RefereeProvider: React.FC<Props> = ({ children }) => {
     try {
       const res = await fetch(`${config.API_URL}/api/referees/${id}`, {
         method: 'DELETE',
+        headers: {
+          ...authHeader()
+        }
       });
       if (!res.ok) {
         const errorData = await res.json();
@@ -259,7 +281,10 @@ export const RefereeProvider: React.FC<Props> = ({ children }) => {
     try {
       const res = await fetch(`${config.API_URL}/api/referees/${updatedRef.id}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          ...authHeader()
+        },
         body: JSON.stringify(updatedRef),
       });
       if (!res.ok) {
@@ -282,7 +307,10 @@ export const RefereeProvider: React.FC<Props> = ({ children }) => {
     try {
       const res = await fetch(`${config.API_URL}/api/referees/${id}`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          ...authHeader()
+        },
         body: JSON.stringify(partialData),
       });
       if (!res.ok) {

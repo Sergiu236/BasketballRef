@@ -10,10 +10,14 @@ import {
   healthCheckController,
   syncController,
 } from '../controllers/refereesController';   // ← path fixed
+import { authenticateToken } from '../middleware/auth';
 
 const router = express.Router();
 
 router.get('/health',  healthCheckController);
+
+// All routes below this middleware require authentication
+router.use(authenticateToken);
 router.post('/sync',    syncController);
 
 router.get('/',         getAllReferees);

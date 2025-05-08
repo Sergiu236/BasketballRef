@@ -4,8 +4,11 @@ import {
     Column,
     OneToMany,
     Index,
+    ManyToOne,
+    JoinColumn,
   } from 'typeorm';
   import { Game } from './Game';
+  import { User } from './User';
   
   @Entity({ name: 'Referees' })
   export class Referee {
@@ -45,10 +48,17 @@ import {
     @Column({ type: 'nvarchar', length: 200 })
     photo!: string;
   
+    @Column({ nullable: true })
+    userId!: number | null;
+  
     // ─────────────────────────────────────────────
     // Relations
     // ─────────────────────────────────────────────
     @OneToMany(() => Game, (game) => game.referee, { cascade: ['insert', 'update'] })
     games!: Game[];
+  
+    @ManyToOne(() => User, (user) => user.referees, { nullable: true })
+    @JoinColumn({ name: 'userId' })
+    user!: User;
   }
   

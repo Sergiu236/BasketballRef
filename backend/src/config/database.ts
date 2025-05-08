@@ -4,6 +4,9 @@ import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 import { Referee }    from '../entities/Referee';
 import { Game }       from '../entities/Game';
+import { User }       from '../entities/User';
+import { Log }        from '../entities/Log';
+import { MonitoredUser } from '../entities/MonitoredUser';
 
 // import the ODBC driver entry-point with Windows authentication & named pipes
 import sqlServer from 'mssql/msnodesqlv8';
@@ -30,7 +33,7 @@ export const AppDataSource = new DataSource({
     }
   },
 
-  entities: [Referee, Game],
+  entities: [Referee, Game, User, Log, MonitoredUser],
   synchronize: true,   // dev only: auto-sync schema
   logging: false,
 });

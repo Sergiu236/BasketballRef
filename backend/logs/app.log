@@ -1,0 +1,150 @@
+{"level":"info","message":"Starting user activity monitoring service","timestamp":"2025-05-08T09:59:18.024Z"}
+{"level":"info","message":"Starting user activity monitoring service","timestamp":"2025-05-08T09:59:37.373Z"}
+{"level":"info","message":"Stopping user activity monitoring service","timestamp":"2025-05-08T09:59:45.447Z"}
+{"level":"info","message":"Starting user activity monitoring service","timestamp":"2025-05-08T09:59:53.416Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T10:00:53.424Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T10:00:53.468Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T10:01:53.426Z"}
+{"code":"EREQUEST","driverError":{"code":"EREQUEST","name":"RequestError","number":-1,"originalError":{"code":-1,"sqlstate":"IMNOD"},"state":"IMNOD"},"level":"error","message":"Error checking for suspicious activity: Error: IMNOD: [msnodesql] Parameter 2: Invalid parameter type","number":-1,"originalError":{"code":-1,"sqlstate":"IMNOD"},"parameters":[{"params":[],"type":"int","value":1},{"params":[],"type":"datetime2","value":{"$gte":"2025-05-08T09:56:53.427Z","$lte":"2025-05-08T10:01:53.427Z"}}],"query":"SELECT COUNT(1) AS \"cnt\" FROM \"Logs\" \"Log\" WHERE ((\"Log\".\"userId\" = @0) AND (\"Log\".\"timestamp\" = @1))","stack":"QueryFailedError: Error: IMNOD: [msnodesql] Parameter 2: Invalid parameter type\n    at C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\src\\driver\\sqlserver\\SqlServerQueryRunner.ts:281:30\n    at C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\mssql\\lib\\base\\request.js:440:25\n    at handleError (C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\mssql\\lib\\msnodesqlv8\\request.js:305:13)\n    at StreamEvents.emit (node:events:520:28)\n    at C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\msnodesqlv8\\lib\\reader.js:83:20\n    at Array.forEach (<anonymous>)\n    at Query.routeStatementError (C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\msnodesqlv8\\lib\\reader.js:73:19)\n    at C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\msnodesqlv8\\lib\\reader.js:239:12\n    at C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\msnodesqlv8\\lib\\driver.js:191:13\n    at Immediate.<anonymous> (C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\msnodesqlv8\\lib\\driver.js:167:9)","state":"IMNOD","timestamp":"2025-05-08T10:01:53.529Z"}
+{"code":"EREQUEST","driverError":{"code":"EREQUEST","name":"RequestError","number":-1,"originalError":{"code":-1,"sqlstate":"IMNOD"},"state":"IMNOD"},"level":"error","message":"Error in monitoring service: Error: IMNOD: [msnodesql] Parameter 2: Invalid parameter type","number":-1,"originalError":{"code":-1,"sqlstate":"IMNOD"},"parameters":[{"params":[],"type":"int","value":1},{"params":[],"type":"datetime2","value":{"$gte":"2025-05-08T09:56:53.427Z","$lte":"2025-05-08T10:01:53.427Z"}}],"query":"SELECT COUNT(1) AS \"cnt\" FROM \"Logs\" \"Log\" WHERE ((\"Log\".\"userId\" = @0) AND (\"Log\".\"timestamp\" = @1))","stack":"QueryFailedError: Error: IMNOD: [msnodesql] Parameter 2: Invalid parameter type\n    at C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\src\\driver\\sqlserver\\SqlServerQueryRunner.ts:281:30\n    at C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\mssql\\lib\\base\\request.js:440:25\n    at handleError (C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\mssql\\lib\\msnodesqlv8\\request.js:305:13)\n    at StreamEvents.emit (node:events:520:28)\n    at C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\msnodesqlv8\\lib\\reader.js:83:20\n    at Array.forEach (<anonymous>)\n    at Query.routeStatementError (C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\msnodesqlv8\\lib\\reader.js:73:19)\n    at C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\msnodesqlv8\\lib\\reader.js:239:12\n    at C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\msnodesqlv8\\lib\\driver.js:191:13\n    at Immediate.<anonymous> (C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\msnodesqlv8\\lib\\driver.js:167:9)","state":"IMNOD","timestamp":"2025-05-08T10:01:53.533Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T10:02:53.431Z"}
+{"code":"EREQUEST","driverError":{"code":"EREQUEST","name":"RequestError","number":-1,"originalError":{"code":-1,"sqlstate":"IMNOD"},"state":"IMNOD"},"level":"error","message":"Error checking for suspicious activity: Error: IMNOD: [msnodesql] Parameter 2: Invalid parameter type","number":-1,"originalError":{"code":-1,"sqlstate":"IMNOD"},"parameters":[{"params":[],"type":"int","value":1},{"params":[],"type":"datetime2","value":{"$gte":"2025-05-08T09:57:53.432Z","$lte":"2025-05-08T10:02:53.432Z"}}],"query":"SELECT COUNT(1) AS \"cnt\" FROM \"Logs\" \"Log\" WHERE ((\"Log\".\"userId\" = @0) AND (\"Log\".\"timestamp\" = @1))","stack":"QueryFailedError: Error: IMNOD: [msnodesql] Parameter 2: Invalid parameter type\n    at C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\src\\driver\\sqlserver\\SqlServerQueryRunner.ts:281:30\n    at C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\mssql\\lib\\base\\request.js:440:25\n    at handleError (C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\mssql\\lib\\msnodesqlv8\\request.js:305:13)\n    at StreamEvents.emit (node:events:520:28)\n    at C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\msnodesqlv8\\lib\\reader.js:83:20\n    at Array.forEach (<anonymous>)\n    at Query.routeStatementError (C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\msnodesqlv8\\lib\\reader.js:73:19)\n    at C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\msnodesqlv8\\lib\\reader.js:239:12\n    at C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\msnodesqlv8\\lib\\driver.js:191:13\n    at Immediate.<anonymous> (C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\msnodesqlv8\\lib\\driver.js:167:9)","state":"IMNOD","timestamp":"2025-05-08T10:02:53.443Z"}
+{"code":"EREQUEST","driverError":{"code":"EREQUEST","name":"RequestError","number":-1,"originalError":{"code":-1,"sqlstate":"IMNOD"},"state":"IMNOD"},"level":"error","message":"Error in monitoring service: Error: IMNOD: [msnodesql] Parameter 2: Invalid parameter type","number":-1,"originalError":{"code":-1,"sqlstate":"IMNOD"},"parameters":[{"params":[],"type":"int","value":1},{"params":[],"type":"datetime2","value":{"$gte":"2025-05-08T09:57:53.432Z","$lte":"2025-05-08T10:02:53.432Z"}}],"query":"SELECT COUNT(1) AS \"cnt\" FROM \"Logs\" \"Log\" WHERE ((\"Log\".\"userId\" = @0) AND (\"Log\".\"timestamp\" = @1))","stack":"QueryFailedError: Error: IMNOD: [msnodesql] Parameter 2: Invalid parameter type\n    at C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\src\\driver\\sqlserver\\SqlServerQueryRunner.ts:281:30\n    at C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\mssql\\lib\\base\\request.js:440:25\n    at handleError (C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\mssql\\lib\\msnodesqlv8\\request.js:305:13)\n    at StreamEvents.emit (node:events:520:28)\n    at C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\msnodesqlv8\\lib\\reader.js:83:20\n    at Array.forEach (<anonymous>)\n    at Query.routeStatementError (C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\msnodesqlv8\\lib\\reader.js:73:19)\n    at C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\msnodesqlv8\\lib\\reader.js:239:12\n    at C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\msnodesqlv8\\lib\\driver.js:191:13\n    at Immediate.<anonymous> (C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\msnodesqlv8\\lib\\driver.js:167:9)","state":"IMNOD","timestamp":"2025-05-08T10:02:53.444Z"}
+{"level":"info","message":"Stopping user activity monitoring service","timestamp":"2025-05-08T10:03:03.935Z"}
+{"level":"info","message":"Starting user activity monitoring service","timestamp":"2025-05-08T10:08:19.067Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T10:09:19.090Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T10:09:19.163Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T10:10:19.092Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T10:10:19.151Z"}
+{"level":"info","message":"Stopping user activity monitoring service","timestamp":"2025-05-08T10:10:37.254Z"}
+{"level":"info","message":"Starting user activity monitoring service","timestamp":"2025-05-08T10:11:02.769Z"}
+{"level":"info","message":"Stopping user activity monitoring service","timestamp":"2025-05-08T10:11:43.641Z"}
+{"level":"info","message":"Starting user activity monitoring service","timestamp":"2025-05-08T10:19:46.353Z"}
+{"level":"info","message":"Stopping user activity monitoring service","timestamp":"2025-05-08T10:20:44.382Z"}
+{"level":"info","message":"Starting user activity monitoring service","timestamp":"2025-05-08T10:21:03.621Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T10:22:03.639Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T10:22:03.672Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T10:23:03.648Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T10:23:03.662Z"}
+{"level":"info","message":"Stopping user activity monitoring service","timestamp":"2025-05-08T10:23:06.666Z"}
+{"level":"info","message":"Starting user activity monitoring service","timestamp":"2025-05-08T10:25:56.112Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T10:26:56.120Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T10:26:56.158Z"}
+{"level":"info","message":"Stopping user activity monitoring service","timestamp":"2025-05-08T10:27:34.176Z"}
+{"level":"info","message":"Starting user activity monitoring service","timestamp":"2025-05-08T10:28:02.679Z"}
+{"level":"info","message":"Stopping user activity monitoring service","timestamp":"2025-05-08T10:28:58.486Z"}
+{"level":"info","message":"Starting user activity monitoring service","timestamp":"2025-05-08T10:33:31.721Z"}
+{"level":"info","message":"Logged action: read on referee by user 1","timestamp":"2025-05-08T10:34:02.326Z"}
+{"level":"info","message":"Logged action: read on referee by user 1","timestamp":"2025-05-08T10:34:11.086Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T10:34:31.730Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T10:34:31.756Z"}
+{"level":"info","message":"Stopping user activity monitoring service","timestamp":"2025-05-08T10:34:32.014Z"}
+{"level":"info","message":"Starting user activity monitoring service","timestamp":"2025-05-08T10:34:41.699Z"}
+{"level":"info","message":"Logged action: read on referee by user 1","timestamp":"2025-05-08T10:34:53.921Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T10:35:41.727Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T10:35:41.752Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T10:36:41.739Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T10:36:41.788Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T10:37:41.746Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T10:37:41.761Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T10:38:41.754Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T10:38:41.771Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T10:39:41.762Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T10:39:41.773Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T10:40:41.762Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T10:40:41.804Z"}
+{"level":"info","message":"Stopping user activity monitoring service","timestamp":"2025-05-08T10:41:35.293Z"}
+{"level":"info","message":"Starting user activity monitoring service","timestamp":"2025-05-08T10:42:44.810Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T10:43:44.841Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T10:43:44.870Z"}
+{"level":"info","message":"Stopping user activity monitoring service","timestamp":"2025-05-08T10:44:38.052Z"}
+{"level":"info","message":"Starting user activity monitoring service","timestamp":"2025-05-08T10:50:14.143Z"}
+{"level":"info","message":"Logged action: read on referee by user 2","timestamp":"2025-05-08T10:50:29.090Z"}
+{"level":"info","message":"Logged action: read on referee by user 2","timestamp":"2025-05-08T10:50:42.650Z"}
+{"level":"info","message":"Logged action: read on referee by user 2","timestamp":"2025-05-08T10:50:42.873Z"}
+{"level":"info","message":"Logged action: read on referee by user 2","timestamp":"2025-05-08T10:50:43.204Z"}
+{"level":"info","message":"Logged action: read on referee by user 2","timestamp":"2025-05-08T10:50:43.328Z"}
+{"level":"info","message":"Logged action: read on referee by user 2","timestamp":"2025-05-08T10:50:43.429Z"}
+{"level":"info","message":"Logged action: read on referee by user 2","timestamp":"2025-05-08T10:50:43.618Z"}
+{"level":"info","message":"Logged action: read on referee by user 2","timestamp":"2025-05-08T10:50:43.935Z"}
+{"level":"info","message":"Logged action: read on referee by user 2","timestamp":"2025-05-08T10:50:44.956Z"}
+{"level":"info","message":"Logged action: read on referee by user 2","timestamp":"2025-05-08T10:50:45.044Z"}
+{"level":"info","message":"Logged action: read on referee by user 2","timestamp":"2025-05-08T10:50:45.155Z"}
+{"level":"info","message":"Logged action: read on referee by user 2","timestamp":"2025-05-08T10:50:45.325Z"}
+{"level":"info","message":"Logged action: read on referee by user 2","timestamp":"2025-05-08T10:50:45.438Z"}
+{"level":"info","message":"Logged action: read on referee by user 2","timestamp":"2025-05-08T10:50:45.685Z"}
+{"level":"info","message":"Logged action: read on user by user 2","timestamp":"2025-05-08T10:51:13.044Z"}
+{"level":"info","message":"Logged action: read on monitored_user by user 2","timestamp":"2025-05-08T10:51:13.091Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T10:51:14.159Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T10:51:14.179Z"}
+{"level":"info","message":"Logged action: read on monitored_user by user 2","timestamp":"2025-05-08T10:51:30.169Z"}
+{"level":"info","message":"Logged action: read on user by user 2","timestamp":"2025-05-08T10:51:32.927Z"}
+{"level":"info","message":"Logged action: read on monitored_user by user 2","timestamp":"2025-05-08T10:51:32.952Z"}
+{"level":"info","message":"Logged action: read on monitored_user by user 2","timestamp":"2025-05-08T10:51:45.996Z"}
+{"level":"info","message":"Logged action: read on user by user 2","timestamp":"2025-05-08T10:51:53.039Z"}
+{"level":"info","message":"Logged action: read on monitored_user by user 2","timestamp":"2025-05-08T10:51:53.090Z"}
+{"level":"info","message":"Logged action: read on referee by user 2","timestamp":"2025-05-08T10:52:06.397Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T10:52:14.160Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T10:52:14.182Z"}
+{"level":"info","message":"Logged action: read on referee by user 2","timestamp":"2025-05-08T10:52:32.433Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T10:53:14.167Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T10:53:14.187Z"}
+{"level":"info","message":"Logged action: read on user by user 2","timestamp":"2025-05-08T10:53:20.994Z"}
+{"level":"info","message":"Logged action: read on monitored_user by user 2","timestamp":"2025-05-08T10:53:21.034Z"}
+{"level":"info","message":"Logged action: read on monitored_user by user 2","timestamp":"2025-05-08T10:53:23.917Z"}
+{"level":"info","message":"Logged action: read on monitored_user by user 2","timestamp":"2025-05-08T10:53:26.611Z"}
+{"level":"info","message":"Logged action: read on monitored_user by user 2","timestamp":"2025-05-08T10:53:27.914Z"}
+{"level":"info","message":"Logged action: read on user by user 2","timestamp":"2025-05-08T10:53:33.422Z"}
+{"level":"info","message":"Logged action: read on monitored_user by user 2","timestamp":"2025-05-08T10:53:33.451Z"}
+{"level":"info","message":"Logged action: read on user by user 2","timestamp":"2025-05-08T10:53:37.691Z"}
+{"level":"info","message":"Logged action: read on monitored_user by user 2","timestamp":"2025-05-08T10:53:37.716Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T10:54:14.184Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T10:54:14.241Z"}
+{"level":"info","message":"Stopping user activity monitoring service","timestamp":"2025-05-08T10:54:14.250Z"}
+{"level":"info","message":"Starting user activity monitoring service","timestamp":"2025-05-08T11:04:48.913Z"}
+{"level":"info","message":"Logged action: read on user by user 2","timestamp":"2025-05-08T11:05:01.686Z"}
+{"level":"info","message":"Logged action: read on referee by user 2","timestamp":"2025-05-08T11:05:01.692Z"}
+{"level":"info","message":"Logged action: read on monitored_user by user 2","timestamp":"2025-05-08T11:05:01.738Z"}
+{"level":"info","message":"Logged action: read on monitored_user by user 2","timestamp":"2025-05-08T11:05:11.138Z"}
+{"level":"info","message":"Logged action: read on user by user 2","timestamp":"2025-05-08T11:05:15.856Z"}
+{"level":"info","message":"Logged action: read on monitored_user by user 2","timestamp":"2025-05-08T11:05:15.883Z"}
+{"level":"info","message":"Logged action: read on referee by user 1","timestamp":"2025-05-08T11:05:25.069Z"}
+{"level":"info","message":"Logged action: read on monitored_user by user 2","timestamp":"2025-05-08T11:05:36.533Z"}
+{"level":"info","message":"Logged action: read on user by user 2","timestamp":"2025-05-08T11:05:37.711Z"}
+{"level":"info","message":"Logged action: read on monitored_user by user 2","timestamp":"2025-05-08T11:05:37.738Z"}
+{"level":"info","message":"Logged action: read on user by user 2","timestamp":"2025-05-08T11:05:44.181Z"}
+{"level":"info","message":"Logged action: read on referee by user 2","timestamp":"2025-05-08T11:05:44.184Z"}
+{"level":"info","message":"Logged action: read on monitored_user by user 2","timestamp":"2025-05-08T11:05:44.210Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T11:05:48.926Z"}
+{"level":"info","message":"Found 0 logs in the last 2 minutes","timestamp":"2025-05-08T11:05:48.942Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T11:05:48.943Z"}
+{"level":"info","message":"Logged action: read on monitored_user by user 2","timestamp":"2025-05-08T11:05:59.508Z"}
+{"level":"info","message":"Logged action: read on user by user 2","timestamp":"2025-05-08T11:06:02.126Z"}
+{"level":"info","message":"Logged action: read on monitored_user by user 2","timestamp":"2025-05-08T11:06:02.151Z"}
+{"level":"info","message":"Logged action: read on referee by user 2","timestamp":"2025-05-08T11:06:39.400Z"}
+{"level":"info","message":"Logged action: read on user by user 2","timestamp":"2025-05-08T11:06:39.402Z"}
+{"level":"info","message":"Logged action: read on monitored_user by user 2","timestamp":"2025-05-08T11:06:39.445Z"}
+{"level":"info","message":"Logged action: read on referee by user 2","timestamp":"2025-05-08T11:06:47.203Z"}
+{"level":"info","message":"Logged action: read on user by user 2","timestamp":"2025-05-08T11:06:47.219Z"}
+{"level":"info","message":"Logged action: read on monitored_user by user 2","timestamp":"2025-05-08T11:06:47.246Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T11:06:48.922Z"}
+{"level":"info","message":"Found 0 logs in the last 2 minutes","timestamp":"2025-05-08T11:06:48.936Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T11:06:48.937Z"}
+{"level":"info","message":"Logged action: read on monitored_user by user 2","timestamp":"2025-05-08T11:06:51.602Z"}
+{"level":"info","message":"Logged action: read on user by user 2","timestamp":"2025-05-08T11:06:55.722Z"}
+{"level":"info","message":"Logged action: read on monitored_user by user 2","timestamp":"2025-05-08T11:06:55.750Z"}
+{"level":"info","message":"Logged action: update on referee by user 1","timestamp":"2025-05-08T11:07:39.363Z"}
+{"level":"info","message":"Logged action: read on user by user 2","timestamp":"2025-05-08T11:07:47.346Z"}
+{"level":"info","message":"Logged action: read on referee by user 2","timestamp":"2025-05-08T11:07:47.348Z"}
+{"level":"info","message":"Logged action: read on monitored_user by user 2","timestamp":"2025-05-08T11:07:47.389Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T11:07:48.929Z"}
+{"level":"info","message":"Found 0 logs in the last 2 minutes","timestamp":"2025-05-08T11:07:48.942Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T11:07:48.942Z"}
+{"level":"info","message":"Stopping user activity monitoring service","timestamp":"2025-05-08T11:08:09.164Z"}
+{"level":"info","message":"Starting user activity monitoring service","timestamp":"2025-05-08T11:08:42.835Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T11:09:42.860Z"}
+{"level":"info","message":"Found 0 logs in the last 2 minutes","timestamp":"2025-05-08T11:09:42.893Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T11:09:42.893Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-08T11:10:42.862Z"}
+{"level":"info","message":"Found 0 logs in the last 2 minutes","timestamp":"2025-05-08T11:10:42.885Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-08T11:10:42.886Z"}

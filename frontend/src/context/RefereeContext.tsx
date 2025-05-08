@@ -223,8 +223,8 @@ export const RefereeProvider: React.FC<Props> = ({ children }) => {
         const err = await res.json();
         throw new Error(err.error || 'Failed to add referee');
       }
-      const data = await res.json();
-      setReferees(prev => [data, ...prev]);
+      // The WebSocket event will handle the UI update, so we don't need to update state here
+      await res.json(); // Still parse the response to avoid fetch warnings
     } catch (error: any) {
       console.error('Error adding referee:', error.message);
       throw error;
@@ -244,7 +244,7 @@ export const RefereeProvider: React.FC<Props> = ({ children }) => {
         const errorData = await res.json();
         throw new Error(errorData.error || 'Failed to delete referee');
       }
-      setReferees(prev => prev.filter(r => r.id !== id));
+      // The WebSocket event will handle the UI update, so we don't need to update state here
     } catch (error: any) {
       console.error('Error deleting referee:', error.message);
       throw error;
@@ -266,8 +266,8 @@ export const RefereeProvider: React.FC<Props> = ({ children }) => {
         const errData = await res.json();
         throw new Error(errData.error || 'Failed to update');
       }
-      const data = await res.json();
-      setReferees(prev => prev.map(r => (r.id === data.id ? data : r)));
+      // The WebSocket event will handle the UI update, so we don't need to update state here
+      await res.json(); // Still parse the response to avoid fetch warnings
     } catch (error: any) {
       console.error('Error updating referee:', error.message);
       throw error;
@@ -289,8 +289,8 @@ export const RefereeProvider: React.FC<Props> = ({ children }) => {
         const errData = await res.json();
         throw new Error(errData.error || 'Failed to patch referee');
       }
-      const data = await res.json();
-      setReferees(prev => prev.map(r => (r.id === data.id ? data : r)));
+      // The WebSocket event will handle the UI update, so we don't need to update state here
+      await res.json(); // Still parse the response to avoid fetch warnings
     } catch (error: any) {
       console.error('Error patching referee:', error.message);
       throw error;

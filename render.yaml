@@ -3,8 +3,8 @@ services:
   - type: web
     name: basketball-ref-api
     env: node
-    buildCommand: cd backend && npm install && npm run build:prod
-    startCommand: cd backend && npm start
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm run deploy
     healthCheckPath: /api/health
     envVars:
       - key: NODE_ENV

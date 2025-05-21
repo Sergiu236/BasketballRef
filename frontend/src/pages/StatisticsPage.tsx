@@ -83,7 +83,7 @@ const StatisticsPage: React.FC = () => {
           <ResponsiveContainer>
             <PieChart>
               <Pie data={pieData} dataKey="value" nameKey="name" outerRadius={80} label>
-                {pieData.map((entry, index) => (
+                {pieData.map((_, index) => (
                   <Cell
                     key={`cell-${index}`}
                     fill={COLORS[index % COLORS.length]}

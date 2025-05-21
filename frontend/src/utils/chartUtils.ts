@@ -6,11 +6,11 @@ import { Referee } from '../data/referees';
  */
 export function getLeagueBarData(referees: Referee[]) {
   const leagueCount: Record<string, number> = {};
-  referees.forEach((ref) => {
-    if (!leagueCount[ref.league]) {
-      leagueCount[ref.league] = 0;
+  referees.forEach((referee) => {
+    if (!leagueCount[referee.league]) {
+      leagueCount[referee.league] = 0;
     }
-    leagueCount[ref.league]++;
+    leagueCount[referee.league]++;
   });
   return Object.entries(leagueCount).map(([league, count]) => ({
     league,
@@ -52,7 +52,7 @@ export function getTierPieData(referees: Referee[]) {
     else if (r.grade === worstGrade) worstCount++;
   });
 
-  middle.forEach((ref, i) => {
+  middle.forEach((_, i) => {
     if (i < half) silverCount++;
     else bronzeCount++;
   });
@@ -72,12 +72,12 @@ export function getTierPieData(referees: Referee[]) {
 export function getGradeByAgeData(referees: Referee[]) {
   const mapAge: Record<number, { sum: number; count: number }> = {};
 
-  referees.forEach((r) => {
-    if (!mapAge[r.age]) {
-      mapAge[r.age] = { sum: 0, count: 0 };
+  referees.forEach((referee) => {
+    if (!mapAge[referee.age]) {
+      mapAge[referee.age] = { sum: 0, count: 0 };
     }
-    mapAge[r.age].sum += r.grade;
-    mapAge[r.age].count++;
+    mapAge[referee.age].sum += referee.grade;
+    mapAge[referee.age].count++;
   });
 
   // Convert to array sorted by age

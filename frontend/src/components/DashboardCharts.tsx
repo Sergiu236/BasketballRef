@@ -6,7 +6,6 @@ import {
   PieChart, Pie, Cell, Legend,
   LineChart, Line
 } from 'recharts';
-import { Referee } from '../data/referees';
 
 // Some colors for charts
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
@@ -18,8 +17,8 @@ const DashboardCharts: React.FC = () => {
   const leagueData = useMemo(() => {
     // group referees by league
     const leagueCount: Record<string, number> = {};
-    referees.forEach((ref) => {
-      const league = ref.league;
+    referees.forEach((referee) => {
+      const league = referee.league;
       if (!leagueCount[league]) {
         leagueCount[league] = 0;
       }
@@ -67,7 +66,7 @@ const DashboardCharts: React.FC = () => {
     });
 
     // now silver & bronze for the middle
-    middle.forEach((ref, i) => {
+    middle.forEach((_, i) => {
       if (i < halfIndex) silverCount++;
       else bronzeCount++;
     });
@@ -89,12 +88,12 @@ const DashboardCharts: React.FC = () => {
   const gradeByAgeData = useMemo(() => {
     const mapAge: Record<number, { sum: number; count: number }> = {};
 
-    referees.forEach((ref) => {
-      const age = ref.age;
+    referees.forEach((referee) => {
+      const age = referee.age;
       if (!mapAge[age]) {
         mapAge[age] = { sum: 0, count: 0 };
       }
-      mapAge[age].sum += ref.grade;
+      mapAge[age].sum += referee.grade;
       mapAge[age].count++;
     });
 
@@ -134,7 +133,7 @@ const DashboardCharts: React.FC = () => {
             fill="#8884d8"
             label
           >
-            {gradePieData.map((entry, index) => (
+            {gradePieData.map((_, index) => (
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>

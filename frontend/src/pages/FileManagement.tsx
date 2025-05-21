@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import FileUpload from '../components/FileUpload';
 import FileList from '../components/FileList';
 import { FileMetadata } from '../types/fileTypes';
-import { File } from '../data/files';
 import config from '../config';
 
 const FileManagement: React.FC = () => {

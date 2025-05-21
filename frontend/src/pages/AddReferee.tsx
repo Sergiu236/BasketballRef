@@ -34,9 +34,6 @@ const AddReferee: React.FC = () => {
   
   const vsRegex = /^[A-Za-z0-9\s]+\s+vs\s+[A-Za-z0-9\s]+$/i;
 
-  // for date in MM/DD/YYYY format
-  const dateRegex = /^\d{2}\/\d{2}\/\d{4}$/;
-
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];

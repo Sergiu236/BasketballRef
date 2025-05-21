@@ -40,7 +40,7 @@ const leagueTeams = {
  * generateRandomReferee
  * Creates a brand-new referee with random but realistic data
  */
-export function generateRandomReferee(pool: Referee[]): Referee {
+export function generateRandomReferee(): Referee {
   // Generate random fields
   const id = generateUniqueId();
   const firstName = possibleFirstNames[Math.floor(Math.random() * possibleFirstNames.length)];
@@ -87,20 +87,6 @@ export function generateRandomReferee(pool: Referee[]): Referee {
  */
 function randomInt(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-/**
- * randomPastDate(baseDate, yearsAgo): returns a Date object for a random day in the past
- */
-function randomPastDate(baseDate: Date, yearsAgo: number): Date {
-  const start = new Date(baseDate);
-  start.setFullYear(start.getFullYear() - yearsAgo);
-  const end = new Date(baseDate);
-  const daysDiff = Math.floor((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
-  const randomDays = Math.floor(Math.random() * daysDiff);
-  const date = new Date(start);
-  date.setDate(date.getDate() + randomDays);
-  return date;
 }
 
 /**

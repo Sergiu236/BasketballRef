@@ -6,7 +6,7 @@
     "dev": "npx ts-node-dev --respawn --transpile-only src/index.ts",
     "build": "echo 'Skipping build step'",
     "start": "node -r ts-node/register/transpile-only src/index.ts",
-    "postinstall": "npm install -g ts-node",
+    "postinstall": "npm install -g ts-node && npm rebuild bcrypt --build-from-source",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",

@@ -11,29 +11,45 @@ import { MonitoredUser } from '../entities/MonitoredUser';
 // import the ODBC driver entry-point with Windows authentication & named pipes
 import sqlServer from 'mssql/msnodesqlv8';
 
-export const AppDataSource = new DataSource({
-  type: 'mssql',
+// Configuration for different environments
+const isProduction = process.env.NODE_ENV === 'production';
 
-  // tell TypeORM to use the msnodesqlv8 (ODBC) driver
-  driver: sqlServer as any,
+let dataSourceConfig: any;
 
-  // pass the raw ODBC connection options directly to the driver
-  extra: {
-    connectionString: [
-      'DSN=BasketballRefDB2;',
-      'TrustServerCertificate=Yes;'
-    ].join(''),
+if (isProduction) {
+  // PostgreSQL configuration for Render
+  dataSourceConfig = {
+    type: 'postgres',
+    url: process.env.DATABASE_URL,
+    ssl: { rejectUnauthorized: false },
+    entities: [Referee, Game, User, Log, MonitoredUser],
+    synchronize: true,
+    logging: false,
+  };
+} else {
+  // Local MSSQL configuration
+  dataSourceConfig = {
+    type: 'mssql',
+    // tell TypeORM to use the msnodesqlv8 (ODBC) driver
+    driver: sqlServer as any,
+    // pass the raw ODBC connection options directly to the driver
+    extra: {
+      connectionString: [
+        'DSN=BasketballRefDB2;',
+        'TrustServerCertificate=Yes;'
+      ].join(''),
+      // ensure we replace the default Native Client 11 with Driver 17
+      beforeConnect: (cfg: any) => {
+        cfg.conn_str = cfg.conn_str.replace(
+          'SQL Server Native Client 11.0',
+          'ODBC Driver 17 for SQL Server'
+        );
+      }
+    },
+    entities: [Referee, Game, User, Log, MonitoredUser],
+    synchronize: true,
+    logging: false,
+  };
+}
 
-    // ensure we replace the default Native Client 11 with Driver 17
-    beforeConnect: (cfg: any) => {
-      cfg.conn_str = cfg.conn_str.replace(
-        'SQL Server Native Client 11.0',
-        'ODBC Driver 17 for SQL Server'
-      );
-    }
-  },
-
-  entities: [Referee, Game, User, Log, MonitoredUser],
-  synchronize: true,   // dev only: auto-sync schema
-  logging: false,
-});
+export const AppDataSource = new DataSource(dataSourceConfig);

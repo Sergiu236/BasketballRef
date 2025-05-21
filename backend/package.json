@@ -5,8 +5,8 @@
   "scripts": {
     "dev": "npx ts-node-dev --respawn --transpile-only src/index.ts",
     "build": "echo 'Skipping TypeScript build for deployment'",
-    "start": "ts-node --transpile-only src/index.ts",
-    "start:prod": "ts-node --transpile-only src/index.ts",
+    "start": "npx ts-node --transpile-only src/index.ts",
+    "start:prod": "npx ts-node --transpile-only src/index.ts",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",

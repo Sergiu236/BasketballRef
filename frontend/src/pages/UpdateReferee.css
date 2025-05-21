@@ -89,3 +89,40 @@
     cursor: pointer;
   }
   
+  /* Mobile responsive styles */
+  @media screen and (max-width: 768px) {
+    .update-referee-container {
+      padding: 1.5rem;
+      margin: 1rem;
+      max-width: 100%;
+    }
+    
+    .photo-preview {
+      width: 80px;
+      height: 80px;
+    }
+  }
+  
+  /* Small mobile screens */
+  @media screen and (max-width: 480px) {
+    .update-referee-container {
+      padding: 1rem;
+      margin: 0.5rem;
+      border-radius: 6px;
+    }
+    
+    .form-field {
+      gap: 0.3rem;
+    }
+    
+    .form-field label {
+      font-size: 0.9rem;
+    }
+    
+    .popup-message {
+      padding: 1.5rem;
+      width: 90%;
+      max-width: 300px;
+    }
+  }
+  

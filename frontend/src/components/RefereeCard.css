@@ -109,3 +109,65 @@
   background-color: #DC3545;
   color: #fff;
 }
+
+/* Mobile responsive styles */
+@media screen and (max-width: 768px) {
+  .referee-card {
+    width: 100%;
+    max-width: 200px;
+    min-height: 300px;
+    margin: 6px;
+    padding: 12px 12px 20px;
+  }
+  
+  .referee-photo {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .referee-name {
+    font-size: 1rem;
+  }
+  
+  .referee-league, .referee-age, .referee-grade {
+    font-size: 0.8rem;
+  }
+  
+  .badge {
+    width: 26px;
+    height: 26px;
+    font-size: 1rem;
+  }
+  
+  .card-buttons {
+    gap: 8px;
+  }
+  
+  .card-buttons button {
+    padding: 5px 8px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Small mobile screens */
+@media screen and (max-width: 480px) {
+  .referee-card {
+    max-width: 160px;
+    min-height: 280px;
+    margin: 4px;
+    padding: 10px 10px 16px;
+  }
+  
+  .referee-photo {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .referee-name {
+    font-size: 0.9rem;
+  }
+  
+  .referee-league, .referee-age, .referee-grade {
+    font-size: 0.75rem;
+  }
+}

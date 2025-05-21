@@ -139,9 +139,5 @@
   margin-top: 5px;
 }
 
-@media (max-width: 768px) {
-  .fields-container {
-    grid-template-columns: 1fr;
-  }
-}
+
   

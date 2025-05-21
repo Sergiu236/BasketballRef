@@ -24,20 +24,34 @@ if (isProduction) {
     logging: false,
   };
 } else {
-  // Local MSSQL configuration
+  // Local MSSQL configuration with Windows Authentication
+  // import the ODBC driver entry-point with Windows authentication & named pipes
+  const sqlServer = require('mssql/msnodesqlv8');
+  
   dataSourceConfig = {
     type: 'mssql',
-    host: 'localhost',
-    port: 1433,
-    username: 'sa',
-    password: 'your_password',
-    database: 'BasketballRefDB2',
-    options: {
-      trustServerCertificate: true,
-      encrypt: false
+    
+    // tell TypeORM to use the msnodesqlv8 (ODBC) driver
+    driver: sqlServer,
+    
+    // pass the raw ODBC connection options directly to the driver
+    extra: {
+      connectionString: [
+        'DSN=BasketballRefDB2;',
+        'TrustServerCertificate=Yes;'
+      ].join(''),
+      
+      // ensure we replace the default Native Client 11 with Driver 17
+      beforeConnect: (cfg: any) => {
+        cfg.conn_str = cfg.conn_str.replace(
+          'SQL Server Native Client 11.0',
+          'ODBC Driver 17 for SQL Server'
+        );
+      }
     },
+    
     entities: [Referee, Game, User, Log, MonitoredUser],
-    synchronize: true,
+    synchronize: false,   // dezactivăm sincronizarea automată pentru a evita conflicte cu structura existentă
     logging: false,
   };
 }

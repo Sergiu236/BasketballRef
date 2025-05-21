@@ -33,3 +33,27 @@
     cursor: not-allowed;
   }
   
+  /* Mobile responsive styles */
+  @media screen and (max-width: 768px) {
+    .pagination-container {
+      gap: 6px;
+    }
+    
+    .pagination-btn {
+      padding: 5px 8px;
+      font-size: 0.9rem;
+    }
+  }
+  
+  /* Small mobile screens */
+  @media screen and (max-width: 480px) {
+    .pagination-container {
+      gap: 4px;
+    }
+    
+    .pagination-btn {
+      padding: 4px 6px;
+      font-size: 0.8rem;
+    }
+  }
+  

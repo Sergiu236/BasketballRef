@@ -8,7 +8,7 @@ const getApiUrl = () => {
   }
   
   // Development environment
-  const IP_ADDRESS = '192.168.1.12';
+  const IP_ADDRESS = '192.168.69.243'; // IP-ul tău local
   const PORT = 3001;
   return `http://${IP_ADDRESS}:${PORT}`;
 };

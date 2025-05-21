@@ -2572,3 +2572,150 @@
 {"level":"info","message":"Logged action: read on user by user 2","timestamp":"2025-05-21T13:12:06.651Z"}
 {"level":"info","message":"Logged action: read on monitored_user by user 2","timestamp":"2025-05-21T13:12:06.688Z"}
 {"level":"info","message":"Stopping user activity monitoring service","timestamp":"2025-05-21T13:12:31.297Z"}
+{"date":"Wed May 21 2025 22:36:52 GMT+0300 (Eastern European Summer Time)","error":{},"exception":true,"level":"error","message":"uncaughtException: Cannot read properties of undefined (reading 'length')\nTypeError: Cannot read properties of undefined (reading 'length')\n    at NTLMResponsePayload.createResponse (C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\tedious\\src\\ntlm-payload.ts:36:63)\n    at new NTLMResponsePayload (C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\tedious\\src\\ntlm-payload.ts:19:22)\n    at C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\tedious\\src\\connection.ts:3483:29\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)","os":{"loadavg":[0,0,0],"uptime":1153270.156},"process":{"argv":["C:\\Program Files\\nodejs\\node.exe","src/index.ts"],"cwd":"C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend","execPath":"C:\\Program Files\\nodejs\\node.exe","gid":null,"memoryUsage":{"arrayBuffers":249852,"external":2659170,"heapTotal":65376256,"heapUsed":43027600,"rss":103923712},"pid":72852,"uid":null,"version":"v22.0.0"},"stack":"TypeError: Cannot read properties of undefined (reading 'length')\n    at NTLMResponsePayload.createResponse (C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\tedious\\src\\ntlm-payload.ts:36:63)\n    at new NTLMResponsePayload (C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\tedious\\src\\ntlm-payload.ts:19:22)\n    at C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\tedious\\src\\connection.ts:3483:29\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2025-05-21T19:36:52.638Z","trace":[{"column":63,"file":"C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\tedious\\src\\ntlm-payload.ts","function":"NTLMResponsePayload.createResponse","line":36,"method":"createResponse","native":false},{"column":22,"file":"C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\tedious\\src\\ntlm-payload.ts","function":"new NTLMResponsePayload","line":19,"method":null,"native":false},{"column":29,"file":"C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\tedious\\src\\connection.ts","function":null,"line":3483,"method":null,"native":false},{"column":5,"file":"node:internal/process/task_queues","function":"processTicksAndRejections","line":95,"method":null,"native":false}]}
+{"date":"Wed May 21 2025 22:37:44 GMT+0300 (Eastern European Summer Time)","error":{},"exception":true,"level":"error","message":"uncaughtException: Cannot read properties of undefined (reading 'length')\nTypeError: Cannot read properties of undefined (reading 'length')\n    at NTLMResponsePayload.createResponse (C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\tedious\\src\\ntlm-payload.ts:36:63)\n    at new NTLMResponsePayload (C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\tedious\\src\\ntlm-payload.ts:19:22)\n    at C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\tedious\\src\\connection.ts:3483:29\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)","os":{"loadavg":[0,0,0],"uptime":1153321.796},"process":{"argv":["C:\\Program Files\\nodejs\\node.exe","src/index.ts"],"cwd":"C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend","execPath":"C:\\Program Files\\nodejs\\node.exe","gid":null,"memoryUsage":{"arrayBuffers":249852,"external":2659170,"heapTotal":63803392,"heapUsed":40389072,"rss":101793792},"pid":61048,"uid":null,"version":"v22.0.0"},"stack":"TypeError: Cannot read properties of undefined (reading 'length')\n    at NTLMResponsePayload.createResponse (C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\tedious\\src\\ntlm-payload.ts:36:63)\n    at new NTLMResponsePayload (C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\tedious\\src\\ntlm-payload.ts:19:22)\n    at C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\tedious\\src\\connection.ts:3483:29\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2025-05-21T19:37:44.282Z","trace":[{"column":63,"file":"C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\tedious\\src\\ntlm-payload.ts","function":"NTLMResponsePayload.createResponse","line":36,"method":"createResponse","native":false},{"column":22,"file":"C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\tedious\\src\\ntlm-payload.ts","function":"new NTLMResponsePayload","line":19,"method":null,"native":false},{"column":29,"file":"C:\\Users\\User\\Desktop\\An2Sem2\\MPP\\BasketballRef\\backend\\node_modules\\tedious\\src\\connection.ts","function":null,"line":3483,"method":null,"native":false},{"column":5,"file":"node:internal/process/task_queues","function":"processTicksAndRejections","line":95,"method":null,"native":false}]}
+{"level":"info","message":"Starting user activity monitoring service","timestamp":"2025-05-21T19:47:08.995Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-21T19:47:08.997Z"}
+{"level":"info","message":"Found 1 admin users to exclude from monitoring","timestamp":"2025-05-21T19:47:09.027Z"}
+{"level":"info","message":"Found 0 active non-admin users in the last 60 seconds","timestamp":"2025-05-21T19:47:09.039Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-21T19:47:09.040Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-21T19:48:09.011Z"}
+{"level":"info","message":"Found 1 admin users to exclude from monitoring","timestamp":"2025-05-21T19:48:09.039Z"}
+{"level":"info","message":"Found 0 active non-admin users in the last 60 seconds","timestamp":"2025-05-21T19:48:09.049Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-21T19:48:09.049Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-21T19:49:09.026Z"}
+{"level":"info","message":"Found 1 admin users to exclude from monitoring","timestamp":"2025-05-21T19:49:09.060Z"}
+{"level":"info","message":"Found 0 active non-admin users in the last 60 seconds","timestamp":"2025-05-21T19:49:09.068Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-21T19:49:09.068Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-21T19:50:09.040Z"}
+{"level":"info","message":"Found 1 admin users to exclude from monitoring","timestamp":"2025-05-21T19:50:09.065Z"}
+{"level":"info","message":"Found 0 active non-admin users in the last 60 seconds","timestamp":"2025-05-21T19:50:09.073Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-21T19:50:09.074Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-21T19:51:09.043Z"}
+{"level":"info","message":"Found 1 admin users to exclude from monitoring","timestamp":"2025-05-21T19:51:09.053Z"}
+{"level":"info","message":"Found 0 active non-admin users in the last 60 seconds","timestamp":"2025-05-21T19:51:09.063Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-21T19:51:09.063Z"}
+{"level":"info","message":"Logged action: read on referee by user 1","timestamp":"2025-05-21T19:51:26.949Z"}
+{"level":"info","message":"Logged action: read on referee by user 1","timestamp":"2025-05-21T19:51:38.327Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-21T19:52:09.053Z"}
+{"level":"info","message":"Found 1 admin users to exclude from monitoring","timestamp":"2025-05-21T19:52:09.062Z"}
+{"level":"info","message":"Found 1 active non-admin users in the last 60 seconds","timestamp":"2025-05-21T19:52:09.073Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-21T19:52:09.079Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-21T19:53:09.062Z"}
+{"level":"info","message":"Found 1 admin users to exclude from monitoring","timestamp":"2025-05-21T19:53:09.089Z"}
+{"level":"info","message":"Found 1 active non-admin users in the last 60 seconds","timestamp":"2025-05-21T19:53:09.100Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-21T19:53:09.109Z"}
+{"level":"info","message":"Logged action: read on referee by user 1","timestamp":"2025-05-21T19:53:34.440Z"}
+{"level":"info","message":"Logged action: read on referee by user 1","timestamp":"2025-05-21T19:54:06.553Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-21T19:54:09.073Z"}
+{"level":"info","message":"Found 1 admin users to exclude from monitoring","timestamp":"2025-05-21T19:54:09.081Z"}
+{"level":"info","message":"Found 1 active non-admin users in the last 60 seconds","timestamp":"2025-05-21T19:54:09.090Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-21T19:54:09.098Z"}
+{"level":"info","message":"Logged action: read on referee by user 1","timestamp":"2025-05-21T19:54:26.839Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-21T19:55:09.075Z"}
+{"level":"info","message":"Found 1 admin users to exclude from monitoring","timestamp":"2025-05-21T19:55:09.098Z"}
+{"level":"info","message":"Found 1 active non-admin users in the last 60 seconds","timestamp":"2025-05-21T19:55:09.109Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-21T19:55:09.117Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-21T19:56:09.082Z"}
+{"level":"info","message":"Found 1 admin users to exclude from monitoring","timestamp":"2025-05-21T19:56:09.089Z"}
+{"level":"info","message":"Found 1 active non-admin users in the last 60 seconds","timestamp":"2025-05-21T19:56:09.095Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-21T19:56:09.102Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-21T19:57:09.085Z"}
+{"level":"info","message":"Found 1 admin users to exclude from monitoring","timestamp":"2025-05-21T19:57:09.094Z"}
+{"level":"info","message":"Found 1 active non-admin users in the last 60 seconds","timestamp":"2025-05-21T19:57:09.100Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-21T19:57:09.108Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-21T19:58:09.092Z"}
+{"level":"info","message":"Found 1 admin users to exclude from monitoring","timestamp":"2025-05-21T19:58:09.115Z"}
+{"level":"info","message":"Found 1 active non-admin users in the last 60 seconds","timestamp":"2025-05-21T19:58:09.124Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-21T19:58:09.133Z"}
+{"level":"info","message":"Logged action: read on referee by user 1","timestamp":"2025-05-21T19:58:13.346Z"}
+{"level":"info","message":"Logged action: read on referee by user 1","timestamp":"2025-05-21T19:58:14.792Z"}
+{"level":"info","message":"Logged action: read on referee by user 1","timestamp":"2025-05-21T19:58:24.786Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-21T19:59:09.102Z"}
+{"level":"info","message":"Found 1 admin users to exclude from monitoring","timestamp":"2025-05-21T19:59:09.127Z"}
+{"level":"info","message":"Found 1 active non-admin users in the last 60 seconds","timestamp":"2025-05-21T19:59:09.137Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-21T19:59:09.148Z"}
+{"level":"info","message":"Logged action: read on referee by user 1","timestamp":"2025-05-21T19:59:41.528Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-21T20:00:09.105Z"}
+{"level":"info","message":"Found 1 admin users to exclude from monitoring","timestamp":"2025-05-21T20:00:09.123Z"}
+{"level":"info","message":"Found 1 active non-admin users in the last 60 seconds","timestamp":"2025-05-21T20:00:09.130Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-21T20:00:09.140Z"}
+{"level":"info","message":"Logged action: read on referee by user 1","timestamp":"2025-05-21T20:00:35.528Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-21T20:01:09.113Z"}
+{"level":"info","message":"Found 1 admin users to exclude from monitoring","timestamp":"2025-05-21T20:01:09.120Z"}
+{"level":"info","message":"Found 1 active non-admin users in the last 60 seconds","timestamp":"2025-05-21T20:01:09.132Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-21T20:01:09.141Z"}
+{"level":"info","message":"Logged action: read on referee by user 1","timestamp":"2025-05-21T20:01:10.633Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-21T20:02:09.118Z"}
+{"level":"info","message":"Found 1 admin users to exclude from monitoring","timestamp":"2025-05-21T20:02:09.130Z"}
+{"level":"info","message":"Found 1 active non-admin users in the last 60 seconds","timestamp":"2025-05-21T20:02:09.138Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-21T20:02:09.143Z"}
+{"level":"info","message":"Logged action: read on referee by user 1","timestamp":"2025-05-21T20:02:57.952Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-21T20:03:09.118Z"}
+{"level":"info","message":"Found 1 admin users to exclude from monitoring","timestamp":"2025-05-21T20:03:09.125Z"}
+{"level":"info","message":"Found 1 active non-admin users in the last 60 seconds","timestamp":"2025-05-21T20:03:09.135Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-21T20:03:09.143Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-21T20:04:09.127Z"}
+{"level":"info","message":"Found 1 admin users to exclude from monitoring","timestamp":"2025-05-21T20:04:09.145Z"}
+{"level":"info","message":"Found 1 active non-admin users in the last 60 seconds","timestamp":"2025-05-21T20:04:09.152Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-21T20:04:09.158Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-21T20:05:09.140Z"}
+{"level":"info","message":"Found 1 admin users to exclude from monitoring","timestamp":"2025-05-21T20:05:09.154Z"}
+{"level":"info","message":"Found 1 active non-admin users in the last 60 seconds","timestamp":"2025-05-21T20:05:09.162Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-21T20:05:09.169Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-21T20:06:09.143Z"}
+{"level":"info","message":"Found 1 admin users to exclude from monitoring","timestamp":"2025-05-21T20:06:09.165Z"}
+{"level":"info","message":"Found 1 active non-admin users in the last 60 seconds","timestamp":"2025-05-21T20:06:09.173Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-21T20:06:09.179Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-21T20:07:09.150Z"}
+{"level":"info","message":"Found 1 admin users to exclude from monitoring","timestamp":"2025-05-21T20:07:09.171Z"}
+{"level":"info","message":"Found 1 active non-admin users in the last 60 seconds","timestamp":"2025-05-21T20:07:09.178Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-21T20:07:09.183Z"}
+{"level":"info","message":"Logged action: read on referee by user 1","timestamp":"2025-05-21T20:07:20.627Z"}
+{"level":"info","message":"Logged action: read on referee by user 1","timestamp":"2025-05-21T20:07:21.281Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-21T20:08:09.156Z"}
+{"level":"info","message":"Found 1 admin users to exclude from monitoring","timestamp":"2025-05-21T20:08:09.188Z"}
+{"level":"info","message":"Found 1 active non-admin users in the last 60 seconds","timestamp":"2025-05-21T20:08:09.195Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-21T20:08:09.200Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-21T20:09:09.159Z"}
+{"level":"info","message":"Found 1 admin users to exclude from monitoring","timestamp":"2025-05-21T20:09:09.193Z"}
+{"level":"info","message":"Found 1 active non-admin users in the last 60 seconds","timestamp":"2025-05-21T20:09:09.199Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-21T20:09:09.205Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-21T20:10:09.169Z"}
+{"level":"info","message":"Found 1 admin users to exclude from monitoring","timestamp":"2025-05-21T20:10:09.208Z"}
+{"level":"info","message":"Found 1 active non-admin users in the last 60 seconds","timestamp":"2025-05-21T20:10:09.215Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-21T20:10:09.221Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-21T20:11:09.174Z"}
+{"level":"info","message":"Found 1 admin users to exclude from monitoring","timestamp":"2025-05-21T20:11:09.203Z"}
+{"level":"info","message":"Found 1 active non-admin users in the last 60 seconds","timestamp":"2025-05-21T20:11:09.208Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-21T20:11:09.215Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-21T20:12:09.187Z"}
+{"level":"info","message":"Found 1 admin users to exclude from monitoring","timestamp":"2025-05-21T20:12:09.215Z"}
+{"level":"info","message":"Found 1 active non-admin users in the last 60 seconds","timestamp":"2025-05-21T20:12:09.225Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-21T20:12:09.235Z"}
+{"level":"info","message":"Logged action: read on referee by user 1","timestamp":"2025-05-21T20:12:59.843Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-21T20:13:09.198Z"}
+{"level":"info","message":"Found 1 admin users to exclude from monitoring","timestamp":"2025-05-21T20:13:09.203Z"}
+{"level":"info","message":"Found 1 active non-admin users in the last 60 seconds","timestamp":"2025-05-21T20:13:09.214Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-21T20:13:09.222Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-21T20:14:09.198Z"}
+{"level":"info","message":"Found 1 admin users to exclude from monitoring","timestamp":"2025-05-21T20:14:09.207Z"}
+{"level":"info","message":"Found 1 active non-admin users in the last 60 seconds","timestamp":"2025-05-21T20:14:09.213Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-21T20:14:09.219Z"}
+{"level":"info","message":"Logged action: read on referee by user 1","timestamp":"2025-05-21T20:14:14.375Z"}
+{"level":"info","message":"Logged action: read on referee by user 1","timestamp":"2025-05-21T20:14:17.222Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-21T20:15:09.199Z"}
+{"level":"info","message":"Found 1 admin users to exclude from monitoring","timestamp":"2025-05-21T20:15:09.222Z"}
+{"level":"info","message":"Found 1 active non-admin users in the last 60 seconds","timestamp":"2025-05-21T20:15:09.231Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-21T20:15:09.240Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-21T20:16:09.210Z"}
+{"level":"info","message":"Found 1 admin users to exclude from monitoring","timestamp":"2025-05-21T20:16:09.221Z"}
+{"level":"info","message":"Found 1 active non-admin users in the last 60 seconds","timestamp":"2025-05-21T20:16:09.231Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-21T20:16:09.237Z"}
+{"level":"info","message":"Logged action: read on referee by user 1","timestamp":"2025-05-21T20:16:39.873Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-21T20:17:09.213Z"}
+{"level":"info","message":"Found 1 admin users to exclude from monitoring","timestamp":"2025-05-21T20:17:09.225Z"}
+{"level":"info","message":"Found 1 active non-admin users in the last 60 seconds","timestamp":"2025-05-21T20:17:09.234Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-21T20:17:09.244Z"}
+{"level":"info","message":"Logged action: read on referee by user 1","timestamp":"2025-05-21T20:17:09.778Z"}
+{"level":"info","message":"Stopping user activity monitoring service","timestamp":"2025-05-21T20:17:43.176Z"}

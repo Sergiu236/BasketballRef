@@ -70,3 +70,47 @@
   min-width: 100px;
 }
 
+/* Mobile responsive styles */
+@media screen and (max-width: 768px) {
+  .home-container {
+    padding: 1rem;
+  }
+  
+  .top-controls {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .generate-button {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+  
+  .control-select,
+  .control-input {
+    flex: 1;
+    min-width: 80px;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .cards-container {
+    gap: 0.8rem;
+    justify-content: center;
+  }
+}
+
+/* Small mobile screens */
+@media screen and (max-width: 480px) {
+  .top-controls {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .control-select,
+  .control-input {
+    width: 100%;
+  }
+}
+

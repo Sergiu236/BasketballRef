@@ -23,6 +23,11 @@ app.use(cors());
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 
+// Health check endpoint for Render
+app.get('/api/health', (req, res) => {
+  res.status(200).json({ status: 'ok' });
+});
+
 // ──────────────────────────────────────────────────────────────────────────────
 // 2) Concurrency queue (unchanged)
 // ──────────────────────────────────────────────────────────────────────────────

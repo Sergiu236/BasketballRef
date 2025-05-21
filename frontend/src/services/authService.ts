@@ -30,6 +30,12 @@ export interface RegisterData {
 const TOKEN_KEY = 'auth_token';
 const USER_KEY = 'user_data';
 
+// Creăm un eveniment custom pentru autentificare
+export const AUTH_EVENT = 'auth_state_changed';
+export const dispatchAuthEvent = () => {
+  window.dispatchEvent(new Event(AUTH_EVENT));
+};
+
 /**
  * Register a new user
  */
@@ -52,6 +58,9 @@ export const register = async (data: RegisterData): Promise<AuthResponse> => {
   // Save token and user data
   localStorage.setItem(TOKEN_KEY, authResponse.token);
   localStorage.setItem(USER_KEY, JSON.stringify(authResponse.user));
+  
+  // Dispatch event to notify components
+  dispatchAuthEvent();
   
   return authResponse;
 };
@@ -78,6 +87,9 @@ export const login = async (data: LoginData): Promise<AuthResponse> => {
   // Save token and user data
   localStorage.setItem(TOKEN_KEY, authResponse.token);
   localStorage.setItem(USER_KEY, JSON.stringify(authResponse.user));
+  
+  // Dispatch event to notify components
+  dispatchAuthEvent();
   
   return authResponse;
 };

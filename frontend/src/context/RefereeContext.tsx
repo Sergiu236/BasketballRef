@@ -4,7 +4,7 @@ import React, { createContext, useState, useEffect, ReactNode } from 'react';
 import { Referee } from '../data/referees';
 import { useWebSocket } from '../websocket/useWebSocket';
 import config from '../config';
-import { authHeader } from '../services/authService';
+import { authHeader, AUTH_EVENT } from '../services/authService';
 
 interface RefereeContextType {
   // We'll store the loaded referees (pages combined) for infinite scroll
@@ -122,9 +122,25 @@ export const RefereeProvider: React.FC<Props> = ({ children }) => {
     }
   }, []);
 
-  // Initial data load
+  // Ascultă pentru evenimentul de autentificare
   useEffect(() => {
-    fetchReferees();
+    const handleAuthChange = () => {
+      console.log('Auth state changed, fetching referees...');
+      fetchReferees();
+    };
+
+    window.addEventListener(AUTH_EVENT, handleAuthChange);
+    return () => {
+      window.removeEventListener(AUTH_EVENT, handleAuthChange);
+    };
+  }, []);
+
+  // Initial data load - eliminăm deoarece datele vor fi încărcate la autentificare
+  useEffect(() => {
+    // Verificăm dacă utilizatorul este autentificat înainte de a încărca date
+    if (localStorage.getItem('auth_token')) {
+      fetchReferees();
+    }
   }, []);
 
   // Save pending ops to localStorage whenever they change

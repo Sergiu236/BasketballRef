@@ -20,3 +20,75 @@ h1, h2, h3 {
 p {
   margin-bottom: 1rem;
 }
+
+/* Media queries pentru responsivitate mobilă */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+
+  .sidebar {
+    width: 100% !important;
+    position: relative !important;
+    height: auto !important;
+  }
+
+  .main-content {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+
+  /* Table responsive */
+  table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .card {
+    width: 100% !important;
+  }
+
+  .form-field {
+    width: 100% !important;
+  }
+
+  /* Nav menu responsive */
+  .navbar {
+    flex-direction: column !important;
+  }
+
+  .navbar-links {
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .navbar-item {
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+  }
+
+  /* Remove horizontal padding for better display on mobile */
+  .table-container {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* Stack Buttons Vertically */
+  .button-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .button-group > * {
+    margin-bottom: 10px;
+  }
+
+  /* Dashboard responsivitate */
+  .dashboard-grid {
+    grid-template-columns: 1fr !important;
+  }
+}

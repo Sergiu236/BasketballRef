@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { dataSource } from '../index';
 import { User, UserRole } from '../entities/User';
 import { Log, LogAction, EntityType } from '../entities/Log';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { logger } from '../utils/logger';
 

@@ -8,7 +8,6 @@
     "skipLibCheck": true,
     "noEmitOnError": false,
     "ignoreDeprecations": "5.0",
-    "suppressImplicitAnyIndexErrors": true,
     "allowJs": true,
     "checkJs": false
   },

@@ -2719,3 +2719,39 @@
 {"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-21T20:17:09.244Z"}
 {"level":"info","message":"Logged action: read on referee by user 1","timestamp":"2025-05-21T20:17:09.778Z"}
 {"level":"info","message":"Stopping user activity monitoring service","timestamp":"2025-05-21T20:17:43.176Z"}
+{"level":"info","message":"Starting user activity monitoring service","timestamp":"2025-05-21T20:23:48.434Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-21T20:23:48.436Z"}
+{"level":"info","message":"Found 1 admin users to exclude from monitoring","timestamp":"2025-05-21T20:23:48.460Z"}
+{"level":"info","message":"Found 1 active non-admin users in the last 60 seconds","timestamp":"2025-05-21T20:23:48.468Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-21T20:23:48.477Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-21T20:24:48.463Z"}
+{"level":"info","message":"Found 1 admin users to exclude from monitoring","timestamp":"2025-05-21T20:24:48.479Z"}
+{"level":"info","message":"Found 1 active non-admin users in the last 60 seconds","timestamp":"2025-05-21T20:24:48.490Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-21T20:24:48.499Z"}
+{"level":"info","message":"Logged action: read on referee by user 1","timestamp":"2025-05-21T20:25:02.058Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-21T20:25:48.478Z"}
+{"level":"info","message":"Found 1 admin users to exclude from monitoring","timestamp":"2025-05-21T20:25:48.507Z"}
+{"level":"info","message":"Found 1 active non-admin users in the last 60 seconds","timestamp":"2025-05-21T20:25:48.517Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-21T20:25:48.529Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-21T20:26:48.485Z"}
+{"level":"info","message":"Found 1 admin users to exclude from monitoring","timestamp":"2025-05-21T20:26:48.494Z"}
+{"level":"info","message":"Found 1 active non-admin users in the last 60 seconds","timestamp":"2025-05-21T20:26:48.501Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-21T20:26:48.515Z"}
+{"level":"info","message":"Logged action: read on referee by user 1","timestamp":"2025-05-21T20:27:39.114Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-21T20:27:48.492Z"}
+{"level":"info","message":"Found 1 admin users to exclude from monitoring","timestamp":"2025-05-21T20:27:48.512Z"}
+{"level":"info","message":"Found 1 active non-admin users in the last 60 seconds","timestamp":"2025-05-21T20:27:48.521Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-21T20:27:48.532Z"}
+{"level":"info","message":"Logged action: read on referee by user 1","timestamp":"2025-05-21T20:27:59.598Z"}
+{"level":"info","message":"Logged action: read on referee by user 1","timestamp":"2025-05-21T20:28:32.996Z"}
+{"level":"info","message":"Logged action: read on referee by user 1","timestamp":"2025-05-21T20:28:36.666Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-21T20:28:48.496Z"}
+{"level":"info","message":"Found 1 admin users to exclude from monitoring","timestamp":"2025-05-21T20:28:48.513Z"}
+{"level":"info","message":"Found 1 active non-admin users in the last 60 seconds","timestamp":"2025-05-21T20:28:48.521Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-21T20:28:48.531Z"}
+{"level":"info","message":"Logged action: read on referee by user 1","timestamp":"2025-05-21T20:29:11.775Z"}
+{"level":"info","message":"Checking for suspicious user activity","timestamp":"2025-05-21T20:29:48.511Z"}
+{"level":"info","message":"Found 1 admin users to exclude from monitoring","timestamp":"2025-05-21T20:29:48.518Z"}
+{"level":"info","message":"Found 1 active non-admin users in the last 60 seconds","timestamp":"2025-05-21T20:29:48.523Z"}
+{"level":"info","message":"Completed suspicious activity check","timestamp":"2025-05-21T20:29:48.527Z"}
+{"level":"info","message":"Stopping user activity monitoring service","timestamp":"2025-05-21T20:29:50.678Z"}

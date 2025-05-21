@@ -33,11 +33,6 @@ const MainLayout: React.FC = () => {
         <div className="hamburger" onClick={toggleSidebar}>
           ☰
         </div>
-        
-        {/* Home icon la începutul sidebar-ului pentru mobil */}
-        <Link to="/" title="Go to Home" className="home-link-mobile" onClick={handleLinkClick}>
-          <FaHome size={20} />
-        </Link>
 
         <div className="sidebar-links">
           {/* Adăugăm handleLinkClick la toate link-urile */}

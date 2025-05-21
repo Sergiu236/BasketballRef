@@ -37,16 +37,6 @@ html, body {
   user-select: none;
 }
 
-/* Home icon pentru mobil */
-.home-link-mobile {
-  color: #2c2c54;
-  text-decoration: none;
-  font-size: 1.5rem;
-  margin: 0.5rem 0;
-  padding: 0.5rem;
-  display: none; /* ascuns inițial, afișat doar pe mobil */
-}
-
 .sidebar-links {
   margin-top: 2rem;
   display: flex;
@@ -165,23 +155,19 @@ html, body {
     width: calc(100% - 180px);
   }
   
-  /* Afișăm iconița Home pentru mobil */
-  .home-link-mobile {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 0.5rem;
+  /* Stilizare pentru butonul Home din partea de jos pe dispozitive mobile */
+  .sidebar-bottom {
+    bottom: 5rem;
+  }
+  
+  .sidebar-bottom a {
     padding: 0.5rem;
     border-radius: 50%;
+    background-color: rgba(224, 212, 247, 0.3);
   }
   
-  .home-link-mobile:hover {
+  .sidebar-bottom a:hover {
     background-color: #e0d4f7;
-  }
-  
-  /* Ascundem iconița Home de jos pe mobil */
-  .sidebar-bottom {
-    display: none;
   }
 }
 
@@ -209,6 +195,11 @@ html, body {
   .sidebar.open + .main-content {
     margin-left: 160px;
     width: calc(100% - 160px);
+  }
+  
+  /* Poziție mai vizibilă pentru butonul home pe ecrane foarte mici */
+  .sidebar-bottom {
+    bottom: 6rem;
   }
 }
 

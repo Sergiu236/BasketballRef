@@ -16,7 +16,7 @@ export class MonitoredUser {
   @Column()
   userId!: number;
 
-  @Column({ type: 'nvarchar', length: 255 })
+  @Column({ type: 'varchar', length: 255 })
   reason!: string;
 
   @CreateDateColumn()
@@ -31,7 +31,7 @@ export class MonitoredUser {
   @Column({ default: true })
   isActive!: boolean;
 
-  @Column({ type: 'datetime2', nullable: true })
+  @Column({ type: 'timestamp', nullable: true })
   resolvedAt!: Date | null;
 
   @Column({ nullable: true })

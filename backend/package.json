@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "npx ts-node-dev --respawn --transpile-only src/index.ts",
     "build": "tsc",
+    "build:prod": "tsc -p tsconfig.prod.json",
     "start": "node dist/index.js",
     "test": "jest",
     "test:watch": "jest --watch",

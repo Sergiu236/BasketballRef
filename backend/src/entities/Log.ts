@@ -33,19 +33,19 @@ export class Log {
   @Column()
   userId!: number;
 
-  @Column({ type: 'nvarchar', length: 50 })
+  @Column({ type: 'varchar', length: 50 })
   action!: string;
 
-  @Column({ type: 'nvarchar', length: 50 })
+  @Column({ type: 'varchar', length: 50 })
   entityType!: string;
 
-  @Column({ type: 'int', nullable: true })
+  @Column({ type: 'integer', nullable: true })
   entityId!: number | null;
 
   @CreateDateColumn()
   timestamp!: Date;
 
-  @Column({ type: 'nvarchar', length: 'MAX', nullable: true })
+  @Column({ type: 'text', nullable: true })
   details!: string | null;
 
   // ─────────────────────────────────────────────

@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "npx ts-node-dev --respawn --transpile-only src/index.ts",
     "build": "echo 'Skipping build step'",
-    "start": "npx ts-node --transpile-only --skip-project src/index.ts",
+    "start": "node ./node_modules/.bin/ts-node --transpile-only --skip-project src/index.ts",
+    "postinstall": "npm install -g ts-node",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",

@@ -1,71 +1,55 @@
 import { AppDataSource } from '../config/database';
 
-async function createIndexes() {
+async function rebuildIndexes() {
   try {
     await AppDataSource.initialize();
     console.log('Connected to database');
 
-    // Create indexes for better query performance
-    console.log('Adding performance indexes...');
-
-    // Add indexes to the Games table
+    /* 1.  DROP all old IDX_* indexes so nu se mai ciocnesc                    */
+    console.log('Dropping legacy IDX_* indexes...');
     await AppDataSource.query(`
-      IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = 'IDX_Games_RefereeId' AND object_id = OBJECT_ID('Games'))
-      BEGIN
-        CREATE INDEX IDX_Games_RefereeId ON Games (refereeId);
-        PRINT 'Created index IDX_Games_RefereeId';
-      END
+      DECLARE @sql NVARCHAR(MAX) =
+        (SELECT STRING_AGG(
+           'DROP INDEX ' + QUOTENAME(i.name) + ' ON '
+           + QUOTENAME(OBJECT_SCHEMA_NAME(i.object_id)) + '.'
+           + QUOTENAME(OBJECT_NAME(i.object_id)), '; ')
+         FROM sys.indexes i
+         WHERE i.name LIKE 'IDX\\_%' ESCAPE '\\');
+      IF @sql IS NOT NULL EXEC (@sql);
     `);
 
+    /* 2.  GAMES – index compozit & acoperitor                                */
+    console.log('Creating new performant indexes…');
+
+    // (refereeId, date) – include status pentru a evita lookup-uri
     await AppDataSource.query(`
-      IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = 'IDX_Games_Date' AND object_id = OBJECT_ID('Games'))
-      BEGIN
-        CREATE INDEX IDX_Games_Date ON Games (date);
-        PRINT 'Created index IDX_Games_Date';
-      END
+      CREATE INDEX IX_Games_Referee_Date
+        ON dbo.Games (refereeId, [date])
+        INCLUDE (status);
+      PRINT 'Created IX_Games_Referee_Date';
     `);
 
+    // Dacă ai frecvent filtre pe status + date range (fără refereeId)
     await AppDataSource.query(`
-      IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = 'IDX_Games_Status' AND object_id = OBJECT_ID('Games'))
-      BEGIN
-        CREATE INDEX IDX_Games_Status ON Games (status);
-        PRINT 'Created index IDX_Games_Status';
-      END
+      CREATE INDEX IX_Games_Status_Date
+        ON dbo.Games (status, [date]);
+      PRINT 'Created IX_Games_Status_Date';
     `);
 
-    // Add indexes to the Referees table
+    /* 3.  REFEREES – index compozit pe (league, id) și „covering” cu numele  */
     await AppDataSource.query(`
-      IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = 'IDX_Referees_League' AND object_id = OBJECT_ID('Referees'))
-      BEGIN
-        CREATE INDEX IDX_Referees_League ON Referees (league);
-        PRINT 'Created index IDX_Referees_League';
-      END
+      CREATE INDEX IX_Referees_League_Id
+        ON dbo.Referees (league, id)
+        INCLUDE (firstName, lastName, grade);
+      PRINT 'Created IX_Referees_League_Id';
     `);
 
-    await AppDataSource.query(`
-      IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = 'IDX_Referees_Grade' AND object_id = OBJECT_ID('Referees'))
-      BEGIN
-        CREATE INDEX IDX_Referees_Grade ON Referees (grade);
-        PRINT 'Created index IDX_Referees_Grade';
-      END
-    `);
-
-    // Composite index for name-based searches
-    await AppDataSource.query(`
-      IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = 'IDX_Referees_Names' AND object_id = OBJECT_ID('Referees'))
-      BEGIN
-        CREATE INDEX IDX_Referees_Names ON Referees (lastName, firstName);
-        PRINT 'Created index IDX_Referees_Names';
-      END
-    `);
-
-    console.log('All indexes created successfully!');
+    console.log('All new indexes created!\nRun JMeter again to measure ⏱️');
     process.exit(0);
-  } catch (error) {
-    console.error('Error creating indexes:', error);
+  } catch (err) {
+    console.error('Index rebuild failed:', err);
     process.exit(1);
   }
 }
 
-// Run the index creation
-createIndexes(); 
+rebuildIndexes();

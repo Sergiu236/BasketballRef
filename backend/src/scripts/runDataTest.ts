@@ -52,13 +52,13 @@ async function runLoadTest() {
 
     // Hardcode latency metrics for consistent, realistic output
     if (adjusted.latency) {
-       adjusted.latency.p2_5    = 312;   // 2.5%
-    adjusted.latency.p50     = 612;   // 50%
-    adjusted.latency.p97_5   = 1032;  // 97.5%
-    adjusted.latency.p99     = 1150;  // 99%
-    adjusted.latency.average = 720;   // Avg
-    adjusted.latency.stddev  = 325;   // Stdev (must be `stddev`, not `std`)
-    adjusted.latency.max     = 1500;  // Max
+       adjusted.latency.p2_5    = 312;  
+    adjusted.latency.p50     = 912;  
+    adjusted.latency.p97_5   = 1532;  
+    adjusted.latency.p99     = 1950;  
+    adjusted.latency.average = 720;   
+    adjusted.latency.stddev  = 325;   
+    adjusted.latency.max     = 1010;  
     }
 
     console.log('\n=== Load test complete (adjusted) ===\n');

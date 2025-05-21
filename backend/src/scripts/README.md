@@ -74,4 +74,48 @@ Typical results after optimization:
 
 2. JMeter results with 100 concurrent users:
    - Avg response time: < 500ms
-   - Throughput: > 50 requests/second 
+   - Throughput: > 50 requests/second
+
+# Testing Scripts
+
+This directory contains utility scripts for testing the application.
+
+## Simulating High User Activity
+
+There are two scripts available to simulate high user activity:
+
+### Option 1: Using the standalone script (Recommended)
+
+The `simulateHighActivityStandalone.ts` script is a self-contained script that doesn't depend on other parts of the application. This is the recommended approach:
+
+```bash
+# In development:
+ts-node src/scripts/simulateHighActivityStandalone.ts [userId] [numOperations]
+
+# With npm script:
+npm run ts:run -- src/scripts/simulateHighActivityStandalone.ts [userId] [numOperations]
+```
+
+### Option 2: Using the regular script
+
+The `simulateHighActivity.ts` script uses the logging service but might require application code to be free of TypeScript errors:
+
+```bash
+ts-node src/scripts/simulateHighActivity.ts [userId] [numOperations]
+```
+
+Parameters:
+- `userId` (optional): The ID of the user to simulate activities for (default: 1)
+- `numOperations` (optional): The number of operations to perform (default: 10)
+
+For example, to simulate 20 operations for user with ID 2:
+```bash
+ts-node src/scripts/simulateHighActivityStandalone.ts 2 20
+```
+
+### What it does
+
+1. The script will generate the specified number of random CRUD operations (create, read, update, delete) for the given user ID
+2. These operations will be logged in the database through the `LoggingService`
+3. The monitoring service (which runs every minute) will detect the high activity
+4. The user will be added to the monitored users list 

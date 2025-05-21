@@ -134,9 +134,8 @@ AppDataSource.initialize()
               if (Array.isArray(saved)) {
                 console.log(`Saved ${saved.length} referees`);
               } else {
-                // Use type assertion to tell TypeScript what type saved is
-                const referee = saved as Referee;
-                console.log(`Saved referee with ID: ${referee.id}, assigned to userId: ${referee.userId}`);
+                // Use the returned entity directly without type assertion
+                console.log(`Saved referee with ID: ${saved.id}, assigned to userId: ${saved.userId}`);
               }
               broadcastEvent('refereeCreated', saved);
             } catch (error) {

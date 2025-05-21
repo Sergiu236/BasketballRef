@@ -3,13 +3,13 @@ import { Log, LogAction } from '../entities/Log';
 import { MonitoredUser } from '../entities/MonitoredUser';
 import { User } from '../entities/User';
 import { logger } from '../utils/logger';
-import { Between } from 'typeorm';
+import { Between, MoreThan, LessThan } from 'typeorm';
 
 /**
  * Constants for monitoring thresholds
  */
-const SUSPICIOUS_ACTIONS_THRESHOLD = 5; // Number of actions in time window to be considered suspicious
-const TIME_WINDOW_MINUTES = 2; // Time window in minutes
+const SUSPICIOUS_ACTIONS_THRESHOLD = 15; // Number of actions in time window to be considered suspicious
+const TIME_WINDOW_SECONDS = 20; // Time window in seconds (much shorter to detect rapid actions)
 
 /**
  * Service for monitoring suspicious user activity
@@ -22,7 +22,7 @@ export class MonitoringService {
    * Start the monitoring process
    * @param intervalMs How often to check for suspicious activity (in milliseconds)
    */
-  static startMonitoring(intervalMs: number = 60000): void {
+  static startMonitoring(intervalMs: number = 10000): void { // Check every 10 seconds
     if (this.isRunning) {
       logger.warn('Monitoring service is already running');
       return;
@@ -31,6 +31,12 @@ export class MonitoringService {
     logger.info('Starting user activity monitoring service');
     
     this.isRunning = true;
+    
+    // Run an immediate check
+    this.checkForSuspiciousActivity().catch(error => {
+      logger.error('Error in initial monitoring check:', error);
+    });
+    
     this.interval = setInterval(async () => {
       try {
         await this.checkForSuspiciousActivity();
@@ -68,35 +74,98 @@ export class MonitoringService {
     logger.info('Checking for suspicious user activity');
     
     try {
-      const timeWindow = TIME_WINDOW_MINUTES * 60 * 1000; // convert to milliseconds
-      const startTime = new Date(Date.now() - timeWindow);
+      // Look back over a slightly longer period to find any 20-second windows with high activity
+      const extendedLookback = 60 * 1000; // 60 seconds lookback to find any suspicious 20-second windows
+      const timeWindow = TIME_WINDOW_SECONDS * 1000; // 20 seconds in milliseconds
+      const startTime = new Date(Date.now() - extendedLookback);
       
-      // Get logs within the time window
       const logRepository = dataSource.getRepository(Log);
-      const recentLogs = await logRepository.find({
+      const userRepository = dataSource.getRepository(User);
+      
+      // Get all admin users to exclude them
+      const adminUsers = await userRepository.find({
         where: {
-          timestamp: Between(startTime, new Date())
+          role: 'Admin'
         },
-        relations: ['user']
+        select: ['id']
       });
       
-      logger.info(`Found ${recentLogs.length} logs in the last ${TIME_WINDOW_MINUTES} minutes`);
+      const adminUserIds = adminUsers.map(admin => admin.id);
+      logger.info(`Found ${adminUserIds.length} admin users to exclude from monitoring`);
       
-      // Group logs by user
-      const userActivityCounts = new Map<number, number>();
-      for (const log of recentLogs) {
-        if (!log.userId) continue;
-        
-        const count = userActivityCounts.get(log.userId) || 0;
-        userActivityCounts.set(log.userId, count + 1);
-      }
+      // Get all active users who have logs in the extended lookback period
+      const activeUsers = await logRepository
+        .createQueryBuilder('log')
+        .select('log.userId')
+        .where('log.timestamp >= :startTime', { startTime })
+        .andWhere('log.userId NOT IN (:...adminUserIds)', { 
+          adminUserIds: adminUserIds.length > 0 ? adminUserIds : [0] 
+        })
+        .groupBy('log.userId')
+        .getRawMany();
       
-      // Check if any user has suspicious activity
-      for (const [userId, count] of userActivityCounts.entries()) {
-        logger.info(`User ${userId} has ${count} actions in the last ${TIME_WINDOW_MINUTES} minutes`);
+      logger.info(`Found ${activeUsers.length} active non-admin users in the last ${extendedLookback/1000} seconds`);
+      
+      // For each active user, check if they have a 20-second window with 15+ logs
+      for (const user of activeUsers) {
+        const userId = user.log_userId || user.userId;
         
-        if (count >= SUSPICIOUS_ACTIONS_THRESHOLD) {
-          await this.flagSuspiciousUser(userId, count);
+        if (!userId) {
+          logger.error(`Missing userId in activity data: ${JSON.stringify(user)}`);
+          continue;
+        }
+        
+        // Get all logs for this user in the extended period, ordered by timestamp
+        const userLogs = await logRepository
+          .createQueryBuilder('log')
+          .where('log.userId = :userId', { userId })
+          .andWhere('log.timestamp >= :startTime', { startTime })
+          .orderBy('log.timestamp', 'ASC')
+          .getMany();
+        
+        // Skip if not enough logs to possibly meet threshold
+        if (userLogs.length < SUSPICIOUS_ACTIONS_THRESHOLD) {
+          continue;
+        }
+        
+        // Check for any 20-second window with 15+ actions
+        let maxActionsInWindow = 0;
+        let windowStartTime: Date | null = null;
+        let windowEndTime: Date | null = null;
+        
+        for (let i = 0; i < userLogs.length; i++) {
+          const currentLog = userLogs[i];
+          const windowEnd = currentLog.timestamp;
+          const windowStart = new Date(windowEnd.getTime() - timeWindow);
+          
+          // Count logs in this 20-second window
+          const logsInWindow = userLogs.filter(log => 
+            log.timestamp >= windowStart && log.timestamp <= windowEnd
+          );
+          
+          if (logsInWindow.length > maxActionsInWindow) {
+            maxActionsInWindow = logsInWindow.length;
+            windowStartTime = windowStart;
+            windowEndTime = windowEnd;
+          }
+          
+          // Early exit if we've found a window that meets threshold
+          if (maxActionsInWindow >= SUSPICIOUS_ACTIONS_THRESHOLD) {
+            break;
+          }
+        }
+        
+        // If user has 15+ actions in any 20-second window, flag them
+        if (maxActionsInWindow >= SUSPICIOUS_ACTIONS_THRESHOLD) {
+          logger.info(`User ${userId} has ${maxActionsInWindow} actions in a 20-second window from ${windowStartTime} to ${windowEndTime}`);
+          
+          // Get user details for the flag
+          const userDetails = await userRepository.findOne({ where: { id: parseInt(userId) } });
+          
+          // Create a detailed reason with the time window information
+          const reason = `Performed ${maxActionsInWindow} actions in a 20-second window`;
+          
+          await this.flagSuspiciousUser(parseInt(userId), maxActionsInWindow, userDetails?.username);
         }
       }
       
@@ -109,10 +178,11 @@ export class MonitoringService {
   /**
    * Get all monitored users
    */
-  static async getMonitoredUsers(activeOnly: boolean = true): Promise<MonitoredUser[]> {
+  static async getMonitoredUsers(activeOnly: boolean = false): Promise<MonitoredUser[]> {
     try {
       const monitoredUserRepository = dataSource.getRepository(MonitoredUser);
       
+      // Modified to return all monitored users by default
       const whereCondition = activeOnly ? { isActive: true } : {};
       
       return await monitoredUserRepository.find({
@@ -158,7 +228,7 @@ export class MonitoringService {
   /**
    * Flag a user as suspicious
    */
-  static async flagSuspiciousUser(userId: number, actionsCount: number): Promise<void> {
+  static async flagSuspiciousUser(userId: number, actionsCount: number, username?: string | null): Promise<void> {
     try {
       const monitoredUserRepository = dataSource.getRepository(MonitoredUser);
       const userRepository = dataSource.getRepository(User);
@@ -172,19 +242,23 @@ export class MonitoringService {
       });
 
       if (!existingMonitoring) {
-        // Get the user to log their username
-        const user = await userRepository.findOne({ where: { id: userId } });
+        // Get the user to log their username if not provided
+        let userName = username;
+        if (!userName) {
+          const user = await userRepository.findOne({ where: { id: userId } });
+          userName = user?.username;
+        }
         
         // Add user to monitored users list
         const monitoredUser = new MonitoredUser();
         monitoredUser.userId = userId;
-        monitoredUser.reason = `Performed ${actionsCount} actions in ${TIME_WINDOW_MINUTES} minutes`;
+        monitoredUser.reason = `Performed ${actionsCount} actions in ${TIME_WINDOW_SECONDS} seconds`;
         monitoredUser.actionsCount = actionsCount;
-        monitoredUser.timeWindow = TIME_WINDOW_MINUTES;
+        monitoredUser.timeWindow = TIME_WINDOW_SECONDS / 60; // Convert to minutes for DB storage
         monitoredUser.isActive = true;
         
         await monitoredUserRepository.save(monitoredUser);
-        logger.warn(`Added user ${user?.username || userId} to monitored users list for ${actionsCount} actions in ${TIME_WINDOW_MINUTES} minutes`);
+        logger.warn(`Added user ${userName || userId} to monitored users list for ${actionsCount} actions in ${TIME_WINDOW_SECONDS} seconds`);
       } else {
         logger.info(`User ${userId} is already being monitored`);
       }

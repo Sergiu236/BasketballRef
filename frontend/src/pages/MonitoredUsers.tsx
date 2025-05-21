@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   getMonitoredUsers, 
@@ -9,24 +9,44 @@ import {
 
 const MonitoredUsers: React.FC = () => {
   const [monitoredUsers, setMonitoredUsers] = useState<MonitoredUser[]>([]);
-  const [activeOnly, setActiveOnly] = useState(true);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [lastRefreshed, setLastRefreshed] = useState<Date>(new Date());
+  const pollingInterval = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
+    // Initial fetch
     fetchMonitoredUsers();
-  }, [activeOnly]);
+    
+    // Set up polling every 10 seconds
+    pollingInterval.current = setInterval(() => {
+      fetchMonitoredUsers(false); // Don't show loading state for automatic refreshes
+    }, 10000);
+    
+    // Clean up interval on unmount
+    return () => {
+      if (pollingInterval.current) {
+        clearInterval(pollingInterval.current);
+      }
+    };
+  }, []);
 
-  const fetchMonitoredUsers = async () => {
-    setLoading(true);
+  const fetchMonitoredUsers = async (showLoading = true) => {
+    if (showLoading) {
+      setLoading(true);
+    }
+    
     try {
-      const data = await getMonitoredUsers(activeOnly);
+      const data = await getMonitoredUsers(false); // Always get all users
       setMonitoredUsers(data);
+      setLastRefreshed(new Date());
       setError(null);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to load monitored users');
     } finally {
-      setLoading(false);
+      if (showLoading) {
+        setLoading(false);
+      }
     }
   };
 
@@ -40,20 +60,18 @@ const MonitoredUsers: React.FC = () => {
     }
   };
 
+  const handleManualRefresh = () => {
+    fetchMonitoredUsers(true);
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">Monitored Users</h1>
-        <div className="flex items-center space-x-2">
-          <label className="inline-flex items-center">
-            <input
-              type="checkbox"
-              className="form-checkbox h-5 w-5 text-blue-600"
-              checked={activeOnly}
-              onChange={() => setActiveOnly(!activeOnly)}
-            />
-            <span className="ml-2 text-gray-700">Show active only</span>
-          </label>
+        <div className="flex items-center">
+          <span className="text-sm text-gray-500">
+            Last updated: {lastRefreshed.toLocaleTimeString()}
+          </span>
         </div>
       </div>
 
@@ -69,7 +87,7 @@ const MonitoredUsers: React.FC = () => {
         </div>
       ) : monitoredUsers.length === 0 ? (
         <div className="bg-white p-8 rounded-lg shadow-md text-center">
-          <p className="text-gray-500">No {activeOnly ? 'active ' : ''}monitored users found</p>
+          <p className="text-gray-500">No monitored users found</p>
         </div>
       ) : (
         <div className="bg-white rounded-lg shadow-md overflow-hidden">

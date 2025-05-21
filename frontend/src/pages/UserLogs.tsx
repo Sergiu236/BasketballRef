@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { getUserLogs, formatTimestamp, Log } from '../services/monitoringService';
+import { getUserLogs, getLogs, formatTimestamp, Log } from '../services/monitoringService';
 
 const UserLogs: React.FC = () => {
   const { userId } = useParams<{ userId: string }>();
@@ -22,16 +22,21 @@ const UserLogs: React.FC = () => {
   const fetchLogs = async () => {
     setLoading(true);
     try {
-      if (!userId || userId === 'all') {
-        // Handle all logs case
+      let data;
+      
+      if (!userId) {
+        setError('No user ID provided');
+        setLoading(false);
         return;
       }
       
-      const data = await getUserLogs(
-        parseInt(userId), 
-        pagination.limit, 
-        pagination.offset
-      );
+      if (userId === 'all') {
+        // Fetch all logs when userId is 'all'
+        data = await getLogs(pagination.limit, pagination.offset);
+      } else {
+        // Fetch specific user logs
+        data = await getUserLogs(parseInt(userId), pagination.limit, pagination.offset);
+      }
       
       setLogs(data.logs);
       setPagination(prev => ({
@@ -40,7 +45,7 @@ const UserLogs: React.FC = () => {
       }));
       setError(null);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to load user logs');
+      setError(err instanceof Error ? err.message : 'Failed to load logs');
     } finally {
       setLoading(false);
     }
@@ -83,7 +88,7 @@ const UserLogs: React.FC = () => {
 
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">
-          {user 
+          {user && userId !== 'all'
             ? `Logs for ${user.username}`
             : userId === 'all' 
               ? 'All System Logs' 
@@ -103,7 +108,9 @@ const UserLogs: React.FC = () => {
         </div>
       ) : logs.length === 0 ? (
         <div className="bg-white p-8 rounded-lg shadow-md text-center">
-          <p className="text-gray-500">No logs found for this user</p>
+          <p className="text-gray-500">
+            {userId === 'all' ? 'No logs found in the system' : 'No logs found for this user'}
+          </p>
         </div>
       ) : (
         <>
@@ -111,6 +118,11 @@ const UserLogs: React.FC = () => {
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
+                  {userId === 'all' && (
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      User
+                    </th>
+                  )}
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Action
                   </th>
@@ -131,6 +143,13 @@ const UserLogs: React.FC = () => {
               <tbody className="bg-white divide-y divide-gray-200">
                 {logs.map((log) => (
                   <tr key={log.id}>
+                    {userId === 'all' && (
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm font-medium text-gray-900">
+                          {log.user?.username || `User #${log.userId}`}
+                        </div>
+                      </td>
+                    )}
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${
                         log.action === 'create' 

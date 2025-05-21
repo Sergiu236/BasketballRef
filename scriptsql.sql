@@ -95,3 +95,23 @@ SELECT * FROM Referees;
 SELECT * FROM Games;
 SELECT * FROM Logs;
 SELECT * FROM MonitoredUsers;
+--empty table monitoredUsers
+DELETE FROM MonitoredUsers;
+
+
+--insert a regular user
+INSERT INTO Users (username, password, email, role) VALUES ('regularUser', 'password', 'ttt@yahoo.com', 'Regular');
+
+INSERT INTO Users (username, password, email, role) VALUES ('raluca', 'paghvg', 'eee@yahoo.com', 'Regular');
+
+INSERT INTO Users (username, password, email, role) VALUES ('gabi', 'sgfdhvg', 'ggg@yahoo.com', 'Regular');
+
+
+
+--select table user where the id equal to 1
+SELECT * FROM Users WHERE id = 1;
+
+--select the referee where userid = 1
+SELECT * FROM Referees WHERE userId = 1;
+
+select * from Referees;

@@ -1,0 +1,122 @@
+/* Auth Pages Styling (Login & Register) */
+
+.auth-container {
+  background: linear-gradient(135deg, #8a4baf 0%, #5d3d8a 100%);
+  animation: gradientBG 15s ease infinite;
+  background-size: 400% 400%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.auth-card {
+  background-color: white;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.auth-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.auth-input {
+  transition: border-color 0.2s ease;
+  border: 2px solid transparent;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+.auth-input:focus {
+  border-color: #8a4baf;
+  box-shadow: 0 0 0 3px rgba(138, 75, 175, 0.2);
+}
+
+.auth-button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  background-color: #8a4baf;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 12px 0;
+  width: 100%;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.auth-button:hover {
+  background-color: #7a3d9c;
+}
+
+.auth-button:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: all 0.5s ease;
+}
+
+.auth-button:hover:before {
+  left: 100%;
+}
+
+.auth-link {
+  position: relative;
+  display: inline-block;
+  color: #8a4baf;
+  text-decoration: none;
+}
+
+.auth-link:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: #8a4baf;
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease;
+}
+
+.auth-link:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.auth-title {
+  color: #5d3d8a;
+  text-align: center;
+  margin-bottom: 24px;
+  font-size: 28px;
+  font-weight: bold;
+} 

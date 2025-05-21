@@ -11,7 +11,8 @@
     "test:coverage": "jest --coverage",
     "test:api": "jest tests/referees.test.ts",
     "test:controller": "jest tests/refereesController.test.ts",
-    "test:validator": "jest tests/refereeValidator.test.ts"
+    "test:validator": "jest tests/refereeValidator.test.ts",
+    "ts:run": "ts-node"
   },
   "keywords": [],
   "author": "",

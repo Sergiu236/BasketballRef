@@ -57,7 +57,7 @@ This guide will help you deploy your Basketball Ref application to Render.
 Before deployment, make sure to update your frontend's API URL configuration to point to your Render backend service.
 
 In your frontend code, create a file at `frontend/src/config.ts` or update an existing configuration file:
-
+ 
 ```typescript
 export const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 ```

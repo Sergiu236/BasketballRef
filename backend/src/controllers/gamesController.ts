@@ -47,6 +47,35 @@ export const getAllGames = async (req: Request, res: Response) => {
 };
 
 // ──────────────────────────────────────────────────────────────────────────────
+// New controller method to get games by referee ID
+// ──────────────────────────────────────────────────────────────────────────────
+export const getGamesByRefereeId = async (req: Request, res: Response) => {
+  try {
+    const refereeId = +req.params.refereeId;
+    
+    // First check if the referee exists
+    const refRepo = AppDataSource.getRepository(Referee);
+    const refereeExists = await refRepo.findOneBy({ id: refereeId });
+    
+    if (!refereeExists) {
+      return res.status(404).json({ error: 'Referee not found' });
+    }
+    
+    // Then get their games
+    const games = await repo.find({
+      where: { referee: { id: refereeId } },
+      order: { date: 'DESC' },
+      relations: ['referee']
+    });
+    
+    res.json(games);
+  } catch (error) {
+    console.error('Error fetching games by referee ID:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+// ──────────────────────────────────────────────────────────────────────────────
 export const getGameById = async (req: Request, res: Response) => {
   try {
     const game = await repo.findOne({

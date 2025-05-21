@@ -7,6 +7,7 @@ if (!parentPort) {
 
 let shouldStop = false;    // Full worker shutdown
 let isGenerating = false; // Indicates whether we are currently generating
+let currentUserId: number | null = null;  // Store the current user ID
 
 /**
  * Sets isGenerating and notifies the parent about the new status.
@@ -28,9 +29,15 @@ async function runGeneratorLoop() {
   while (!shouldStop) {
     if (isGenerating) {
       const newRef = generateRandomReferee([]);
+      // Add the userId to the generated referee
+      const refereeWithUserId = {
+        ...newRef,
+        userId: currentUserId
+      };
+      
       parentPort?.postMessage({
         type: 'GENERATED_REFEREE',
-        payload: newRef,
+        payload: refereeWithUserId,
       });
       // Generate one referee every 5 seconds
       await sleep(5000);
@@ -43,13 +50,15 @@ async function runGeneratorLoop() {
 
 /** Listen for commands from the parent. */
 parentPort.on('message', (msg) => {
-  if (msg === 'START_GENERATOR') {
-    setGenerating(true);
-  } else if (msg === 'STOP_GENERATOR') {
+  if (msg === 'STOP_GENERATOR') {
     setGenerating(false);
   } else if (msg === 'STOP_WORKER') {
     // For graceful shutdown when the server is closing:
     shouldStop = true;
+  } else if (typeof msg === 'object' && msg.type === 'START_GENERATOR') {
+    currentUserId = msg.userId;
+    console.log(`Generator received userId: ${currentUserId}`);
+    setGenerating(true);
   }
 });
 

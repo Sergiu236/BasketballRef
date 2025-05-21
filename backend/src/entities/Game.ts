@@ -7,6 +7,7 @@ import {
     Index,
   } from 'typeorm';
   import { Referee } from './Referee';
+  import { User } from './User';
   
   @Entity({ name: 'Games' })
   export class Game {
@@ -29,6 +30,12 @@ import {
     @Index()
     status!: string;
   
+    @Column({ nullable: true })
+    createdById!: number | null;
+  
+    @Column({ nullable: true })
+    updatedById!: number | null;
+  
     // ─────────────────────────────────────────────
     // Relations
     // ─────────────────────────────────────────────
@@ -38,5 +45,13 @@ import {
     })
     @JoinColumn({ name: 'refereeId' })
     referee!: Referee;
+  
+    @ManyToOne(() => User, (user) => user.createdGames)
+    @JoinColumn({ name: 'createdById' })
+    createdBy!: User;
+  
+    @ManyToOne(() => User, (user) => user.updatedGames)
+    @JoinColumn({ name: 'updatedById' })
+    updatedBy!: User;
   }
   

@@ -22,10 +22,13 @@ export function initWebSocket(httpServer: HttpServer) {
     // ─────────────────────────────────────────────────────────────────────────
     // 1) start/stop handlers
     // ─────────────────────────────────────────────────────────────────────────
-    socket.on('startGeneration', () => {
-      console.log('Client requests start generation:', socket.id);
+    socket.on('startGeneration', (userId) => {
+      console.log('Client requests start generation:', socket.id, 'User ID:', userId);
       if (generatorWorker) {
-        generatorWorker.postMessage('START_GENERATOR');
+        generatorWorker.postMessage({
+          type: 'START_GENERATOR',
+          userId: userId
+        });
       }
     });
 

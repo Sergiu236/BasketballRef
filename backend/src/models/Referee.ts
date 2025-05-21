@@ -7,10 +7,10 @@ export interface Referee {
     league: string;
     age: number;
     grade: number;
-    promovationDate: string;
+    promovationDate: Date;
     refereedGames: number;
     t1VsT2: string;
-    matchDate: string;
+    matchDate: Date | null;
     photo: string;
   }
   

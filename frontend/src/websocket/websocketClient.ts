@@ -1,5 +1,6 @@
 import { io, Socket } from 'socket.io-client';
 import config from '../config';
+import { getCurrentUser } from '../services/authService';
 
 let socket: Socket | null = null;
 
@@ -59,7 +60,12 @@ export function onGenerationStatus(callback: (status: boolean) => void) {
 // 4) Export start/stop generation methods that emit to the server
 // ─────────────────────────────────────────────────────────────────────────────
 export function startGeneration() {
-  socket?.emit('startGeneration');
+  const currentUser = getCurrentUser();
+  if (currentUser && currentUser.id) {
+    socket?.emit('startGeneration', currentUser.id);
+  } else {
+    console.error('Cannot start generation: No authenticated user found');
+  }
 }
 
 export function stopGeneration() {

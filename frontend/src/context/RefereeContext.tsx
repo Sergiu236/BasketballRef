@@ -4,6 +4,7 @@ import React, { createContext, useState, useEffect, ReactNode } from 'react';
 import { Referee } from '../data/referees';
 import { useWebSocket } from '../websocket/useWebSocket';
 import config from '../config';
+import { authHeader } from '../services/authService';
 
 interface RefereeContextType {
   // We'll store the loaded referees (pages combined) for infinite scroll
@@ -78,7 +79,12 @@ export const RefereeProvider: React.FC<Props> = ({ children }) => {
     setIsLoading(true);
     try {
       const res = await fetch(
-        `${config.API_URL}/api/referees?page=${page}&limit=${limit}`
+        `${config.API_URL}/api/referees?page=${page}&limit=${limit}`,
+        {
+          headers: {
+            ...authHeader()
+          }
+        }
       );
       if (!res.ok) {
         console.error('Pagination load failed');
@@ -179,7 +185,10 @@ export const RefereeProvider: React.FC<Props> = ({ children }) => {
     try {
       const resp = await fetch(`${config.API_URL}/api/referees/sync`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          ...authHeader()
+        },
         body: JSON.stringify({ operations: pendingOperations }),
       });
       if (resp.ok) {
@@ -187,7 +196,14 @@ export const RefereeProvider: React.FC<Props> = ({ children }) => {
         // Refresh the current data (refreshing only the current page)
         const currentPage = page;
         setPage(1);
-        const res = await fetch(`${config.API_URL}/api/referees?page=1&limit=${limit}`);
+        const res = await fetch(
+          `${config.API_URL}/api/referees?page=1&limit=${limit}`,
+          {
+            headers: {
+              ...authHeader()
+            }
+          }
+        );
         if (res.ok) {
           const { data, hasMore: more } = await res.json();
           setReferees(data);
@@ -216,15 +232,18 @@ export const RefereeProvider: React.FC<Props> = ({ children }) => {
     try {
       const res = await fetch(`${config.API_URL}/api/referees`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          ...authHeader()
+        },
         body: JSON.stringify(newReferee),
       });
       if (!res.ok) {
         const err = await res.json();
         throw new Error(err.error || 'Failed to add referee');
       }
-      const data = await res.json();
-      setReferees(prev => [data, ...prev]);
+      // The WebSocket event will handle the UI update, so we don't need to update state here
+      await res.json(); // Still parse the response to avoid fetch warnings
     } catch (error: any) {
       console.error('Error adding referee:', error.message);
       throw error;
@@ -239,12 +258,15 @@ export const RefereeProvider: React.FC<Props> = ({ children }) => {
     try {
       const res = await fetch(`${config.API_URL}/api/referees/${id}`, {
         method: 'DELETE',
+        headers: {
+          ...authHeader()
+        }
       });
       if (!res.ok) {
         const errorData = await res.json();
         throw new Error(errorData.error || 'Failed to delete referee');
       }
-      setReferees(prev => prev.filter(r => r.id !== id));
+      // The WebSocket event will handle the UI update, so we don't need to update state here
     } catch (error: any) {
       console.error('Error deleting referee:', error.message);
       throw error;
@@ -259,15 +281,18 @@ export const RefereeProvider: React.FC<Props> = ({ children }) => {
     try {
       const res = await fetch(`${config.API_URL}/api/referees/${updatedRef.id}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          ...authHeader()
+        },
         body: JSON.stringify(updatedRef),
       });
       if (!res.ok) {
         const errData = await res.json();
         throw new Error(errData.error || 'Failed to update');
       }
-      const data = await res.json();
-      setReferees(prev => prev.map(r => (r.id === data.id ? data : r)));
+      // The WebSocket event will handle the UI update, so we don't need to update state here
+      await res.json(); // Still parse the response to avoid fetch warnings
     } catch (error: any) {
       console.error('Error updating referee:', error.message);
       throw error;
@@ -282,15 +307,18 @@ export const RefereeProvider: React.FC<Props> = ({ children }) => {
     try {
       const res = await fetch(`${config.API_URL}/api/referees/${id}`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          ...authHeader()
+        },
         body: JSON.stringify(partialData),
       });
       if (!res.ok) {
         const errData = await res.json();
         throw new Error(errData.error || 'Failed to patch referee');
       }
-      const data = await res.json();
-      setReferees(prev => prev.map(r => (r.id === data.id ? data : r)));
+      // The WebSocket event will handle the UI update, so we don't need to update state here
+      await res.json(); // Still parse the response to avoid fetch warnings
     } catch (error: any) {
       console.error('Error patching referee:', error.message);
       throw error;

@@ -15,15 +15,15 @@ import {
     @PrimaryGeneratedColumn()
     id!: number;
   
-    @Column({ type: 'nvarchar', length: 100 })
+    @Column({ type: 'varchar', length: 100 })
     @Index()
     firstName!: string;
   
-    @Column({ type: 'nvarchar', length: 100 })
+    @Column({ type: 'varchar', length: 100 })
     @Index()
     lastName!: string;
   
-    @Column({ type: 'nvarchar', length: 50 })
+    @Column({ type: 'varchar', length: 50 })
     @Index()
     league!: string;
   
@@ -39,13 +39,13 @@ import {
     @Column({ default: 0 })
     refereedGames!: number;
   
-    @Column({ type: 'nvarchar', length: 200, nullable: true })
+    @Column({ type: 'varchar', length: 200, nullable: true })
     t1VsT2!: string | null;
   
     @Column({ type: 'date', nullable: true })
     matchDate!: Date | null;
   
-    @Column({ type: 'nvarchar', length: 200 })
+    @Column({ type: 'varchar', length: 200 })
     photo!: string;
   
     @Column({ nullable: true })

@@ -21,19 +21,19 @@ export class User {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column({ type: 'nvarchar', length: 100, unique: true })
+  @Column({ type: 'varchar', length: 100, unique: true })
   @Index()
   username!: string;
 
-  @Column({ type: 'nvarchar', length: 255 })
+  @Column({ type: 'varchar', length: 255 })
   password!: string;
 
-  @Column({ type: 'nvarchar', length: 100, unique: true })
+  @Column({ type: 'varchar', length: 100, unique: true })
   @Index()
   email!: string;
 
   @Column({
-    type: 'nvarchar',
+    type: 'varchar',
     length: 20,
     default: UserRole.REGULAR,
   })
@@ -42,7 +42,7 @@ export class User {
   @CreateDateColumn()
   createdAt!: Date;
 
-  @Column({ type: 'datetime2', nullable: true })
+  @Column({ type: 'timestamp', nullable: true })
   lastLogin!: Date | null;
 
   // ─────────────────────────────────────────────

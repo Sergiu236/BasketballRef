@@ -14,16 +14,16 @@ import {
     @PrimaryGeneratedColumn()
     id!: number;
   
-    @Column({ type: 'datetime2' })
+    @Column({ type: 'timestamp' })
     @Index()
     date!: Date;
   
-    @Column({ type: 'nvarchar', length: 200 })
+    @Column({ type: 'varchar', length: 200 })
     @Index()
     location!: string;
   
     @Column({
-      type: 'nvarchar',
+      type: 'varchar',
       length: 20,
       default: () => "('scheduled')",   // matches the SQL script exactly
     })

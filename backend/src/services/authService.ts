@@ -375,13 +375,20 @@ export class AuthService {
       
       console.log(`🔧 [AUTH] Generated refresh token length: ${refreshToken.length}`);
       
+      // TEMPORARY FIX: Truncate userAgent and deviceInfo to avoid PostgreSQL column limits
+      const truncatedUserAgent = sessionInfo.userAgent ? sessionInfo.userAgent.substring(0, 95) : null;
+      const truncatedDeviceInfo = sessionInfo.deviceInfo ? sessionInfo.deviceInfo.substring(0, 95) : null;
+      
+      console.log(`🔧 [AUTH] Original userAgent length: ${sessionInfo.userAgent?.length || 0}, truncated: ${truncatedUserAgent?.length || 0}`);
+      console.log(`🔧 [AUTH] Original deviceInfo length: ${sessionInfo.deviceInfo?.length || 0}, truncated: ${truncatedDeviceInfo?.length || 0}`);
+      
       // Create session first
       const session = new UserSession();
       session.userId = user.id;
       session.refreshToken = refreshToken;
-      session.deviceInfo = sessionInfo.deviceInfo || null;
+      session.deviceInfo = truncatedDeviceInfo;
       session.ipAddress = sessionInfo.ipAddress || null;
-      session.userAgent = sessionInfo.userAgent || null;
+      session.userAgent = truncatedUserAgent;
       session.expiresAt = new Date(Date.now() + this.parseTimeToMs(JWT_REFRESH_EXPIRES_IN));
       session.lastUsedAt = new Date();
 

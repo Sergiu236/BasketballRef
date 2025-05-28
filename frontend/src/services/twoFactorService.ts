@@ -1,4 +1,5 @@
 import config from '../config';
+import { authenticatedFetch } from './authService';
 
 export interface TwoFactorSetupResponse {
   success: boolean;
@@ -36,21 +37,10 @@ export interface BackupCodesResponse {
  */
 export const getTwoFactorStatus = async (): Promise<TwoFactorStatusResponse> => {
   console.log('🔧 [2FA API] getTwoFactorStatus called');
-  const accessToken = localStorage.getItem('access_token');
-  console.log('🔧 [2FA API] Access token:', accessToken ? 'Present' : 'Missing');
   
-  if (!accessToken) {
-    console.log('❌ [2FA API] No access token found');
-    throw new Error('Authentication required');
-  }
-
   console.log('🔧 [2FA API] Making request to:', `${config.API_URL}/api/2fa/status`);
-  const response = await fetch(`${config.API_URL}/api/2fa/status`, {
+  const response = await authenticatedFetch(`${config.API_URL}/api/2fa/status`, {
     method: 'GET',
-    headers: {
-      'Authorization': `Bearer ${accessToken}`,
-      'Content-Type': 'application/json',
-    },
   });
 
   console.log('🔧 [2FA API] Response status:', response.status);
@@ -72,21 +62,10 @@ export const getTwoFactorStatus = async (): Promise<TwoFactorStatusResponse> => 
  */
 export const generateTwoFactorSetup = async (): Promise<TwoFactorSetupResponse> => {
   console.log('🔧 [2FA API] generateTwoFactorSetup called');
-  const accessToken = localStorage.getItem('access_token');
-  console.log('🔧 [2FA API] Access token:', accessToken ? 'Present' : 'Missing');
   
-  if (!accessToken) {
-    console.log('❌ [2FA API] No access token found');
-    throw new Error('Authentication required');
-  }
-
   console.log('🔧 [2FA API] Making request to:', `${config.API_URL}/api/2fa/setup`);
-  const response = await fetch(`${config.API_URL}/api/2fa/setup`, {
+  const response = await authenticatedFetch(`${config.API_URL}/api/2fa/setup`, {
     method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${accessToken}`,
-      'Content-Type': 'application/json',
-    },
   });
 
   console.log('🔧 [2FA API] Response status:', response.status);
@@ -107,18 +86,8 @@ export const generateTwoFactorSetup = async (): Promise<TwoFactorSetupResponse> 
  * Enable 2FA after verifying the setup token
  */
 export const enableTwoFactor = async (token: string): Promise<{ success: boolean; message?: string }> => {
-  const accessToken = localStorage.getItem('access_token');
-  
-  if (!accessToken) {
-    throw new Error('Authentication required');
-  }
-
-  const response = await fetch(`${config.API_URL}/api/2fa/enable`, {
+  const response = await authenticatedFetch(`${config.API_URL}/api/2fa/enable`, {
     method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${accessToken}`,
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify({ token }),
   });
 
@@ -154,18 +123,8 @@ export const verifyTwoFactor = async (userId: number, token: string): Promise<Tw
  * Disable 2FA
  */
 export const disableTwoFactor = async (currentPassword: string): Promise<{ success: boolean; message?: string }> => {
-  const accessToken = localStorage.getItem('access_token');
-  
-  if (!accessToken) {
-    throw new Error('Authentication required');
-  }
-
-  const response = await fetch(`${config.API_URL}/api/2fa/disable`, {
+  const response = await authenticatedFetch(`${config.API_URL}/api/2fa/disable`, {
     method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${accessToken}`,
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify({ currentPassword }),
   });
 
@@ -181,18 +140,8 @@ export const disableTwoFactor = async (currentPassword: string): Promise<{ succe
  * Regenerate backup codes
  */
 export const regenerateBackupCodes = async (): Promise<BackupCodesResponse> => {
-  const accessToken = localStorage.getItem('access_token');
-  
-  if (!accessToken) {
-    throw new Error('Authentication required');
-  }
-
-  const response = await fetch(`${config.API_URL}/api/2fa/backup-codes/regenerate`, {
+  const response = await authenticatedFetch(`${config.API_URL}/api/2fa/backup-codes/regenerate`, {
     method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${accessToken}`,
-      'Content-Type': 'application/json',
-    },
   });
 
   if (!response.ok) {

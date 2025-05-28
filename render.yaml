@@ -13,6 +13,34 @@ services:
         fromDatabase:
           name: basketball-ref-db
           property: connectionString
+      # JWT Configuration
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 15m
+      - key: JWT_REFRESH_EXPIRES_IN
+        value: 7d
+      # Security Configuration
+      - key: BCRYPT_SALT_ROUNDS
+        value: 12
+      - key: MAX_LOGIN_ATTEMPTS
+        value: 5
+      - key: LOCKOUT_TIME
+        value: 15
+      - key: RATE_LIMIT_WINDOW
+        value: 15
+      - key: RATE_LIMIT_MAX
+        value: 100
+      # Session Configuration
+      - key: SESSION_CLEANUP_INTERVAL
+        value: 3600000
+      - key: MAX_SESSIONS_PER_USER
+        value: 5
+      # Server Configuration
+      - key: PORT
+        value: 3001
 
   # Frontend static site
   - type: web

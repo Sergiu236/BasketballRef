@@ -76,13 +76,15 @@ AppDataSource.initialize()
       { default: gamesRouter },
       { default: statisticsRouter },
       { default: authRouter },
-      { default: monitoringRouter }
+      { default: monitoringRouter },
+      { default: twoFactorRouter }
     ] = await Promise.all([
       import('./routes/refereesRoutes'),
       import('./routes/gamesRoutes'),
       import('./routes/statisticsRoutes'),
       import('./routes/authRoutes'),
       import('./routes/monitoringRoutes'),
+      import('./routes/twoFactorRoutes'),
     ]);
     app.use('/api/referees', refereesRouter);
     app.use('/api/games', gamesRouter);
@@ -90,6 +92,7 @@ AppDataSource.initialize()
     app.use('/api/files',     fileRoutes);   // already imported above
     app.use('/api/auth',      authRouter);
     app.use('/api/monitoring', monitoringRouter);
+    app.use('/api/2fa', twoFactorRouter);
 
     // 3b) HTTP + Socket.io server
     const httpServer = http.createServer(app);

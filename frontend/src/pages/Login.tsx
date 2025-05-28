@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { login, isAuthenticated } from '../services/authService';
+import TwoFactorVerification from '../components/TwoFactorVerification';
 import '../styles/auth.css';
 
 const Login: React.FC = () => {
@@ -8,6 +9,8 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [requiresTwoFactor, setRequiresTwoFactor] = useState(false);
+  const [userId, setUserId] = useState<number | null>(null);
   const navigate = useNavigate();
 
   // Redirect if already authenticated
@@ -23,7 +26,17 @@ const Login: React.FC = () => {
     setLoading(true);
 
     try {
-      await login({ username, password });
+      const result = await login({ username, password });
+      
+      // Check if 2FA is required
+      if (result.requiresTwoFactor && result.userId) {
+        setRequiresTwoFactor(true);
+        setUserId(result.userId);
+        setLoading(false);
+        return;
+      }
+      
+      // Regular login successful
       navigate('/');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Login failed');
@@ -31,6 +44,33 @@ const Login: React.FC = () => {
       setLoading(false);
     }
   };
+
+  const handleTwoFactorSuccess = (user: any, tokens: any) => {
+    // Navigation will be handled by the auth state change
+    navigate('/');
+  };
+
+  const handleTwoFactorError = (error: string) => {
+    setError(error);
+  };
+
+  const handleBackToLogin = () => {
+    setRequiresTwoFactor(false);
+    setUserId(null);
+    setError(null);
+  };
+
+  // Show 2FA verification if required
+  if (requiresTwoFactor && userId) {
+    return (
+      <TwoFactorVerification
+        userId={userId}
+        onSuccess={handleTwoFactorSuccess}
+        onError={handleTwoFactorError}
+        onBack={handleBackToLogin}
+      />
+    );
+  }
 
   return (
     <div className="auth-container">

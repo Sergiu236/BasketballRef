@@ -31,6 +31,8 @@ export interface LoginResult {
   tokens?: TokenPair;
   message?: string;
   lockoutTime?: Date;
+  requiresTwoFactor?: boolean;
+  userId?: number; // For 2FA verification step
 }
 
 export interface SessionInfo {
@@ -161,7 +163,20 @@ export class AuthService {
         };
       }
 
-      // Successful login - clear failed attempts
+      // Check if 2FA is enabled
+      if (user.twoFactorEnabled) {
+        // Don't generate tokens yet, require 2FA verification
+        await this.recordLoginAttempt(username, sessionInfo.ipAddress || '', sessionInfo.userAgent, true, 'Password verified, awaiting 2FA');
+        
+        return {
+          success: true,
+          requiresTwoFactor: true,
+          userId: user.id,
+          message: 'Two-factor authentication required',
+        };
+      }
+
+      // Successful login without 2FA - clear failed attempts
       await this.clearFailedAttempts(username, sessionInfo.ipAddress || '');
       await this.recordLoginAttempt(username, sessionInfo.ipAddress || '', sessionInfo.userAgent, true);
 
@@ -527,6 +542,57 @@ export class AuthService {
       logger.info('Cleaned up expired sessions');
     } catch (error) {
       logger.error('Error cleaning up expired sessions:', error);
+    }
+  }
+
+  /**
+   * Complete login after 2FA verification
+   */
+  static async completeTwoFactorLogin(
+    userId: number,
+    sessionInfo: SessionInfo = {}
+  ): Promise<LoginResult> {
+    try {
+      const userRepository = this.getUserRepository();
+      const user = await userRepository.findOne({ where: { id: userId } });
+
+      if (!user) {
+        return {
+          success: false,
+          message: 'User not found',
+        };
+      }
+
+      // Clear failed attempts and record successful login
+      await this.clearFailedAttempts(user.username, sessionInfo.ipAddress || '');
+      await this.recordLoginAttempt(user.username, sessionInfo.ipAddress || '', sessionInfo.userAgent, true, '2FA verified');
+
+      // Update last login time
+      user.lastLogin = new Date();
+      await userRepository.save(user);
+
+      // Log the login
+      await this.logUserAction(user.id, LogAction.LOGIN, `User ${user.username} logged in with 2FA`);
+
+      // Clean up old sessions and generate new tokens
+      await this.cleanupUserSessions(user.id);
+      const tokens = await this.generateTokens(user, sessionInfo);
+
+      // Return user without password
+      const { password: _, ...userWithoutPassword } = user;
+      
+      return {
+        success: true,
+        user: userWithoutPassword,
+        tokens,
+        message: 'Login successful with two-factor authentication',
+      };
+    } catch (error) {
+      logger.error('Error completing 2FA login:', error);
+      return {
+        success: false,
+        message: 'Internal server error',
+      };
     }
   }
 } 

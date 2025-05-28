@@ -66,6 +66,17 @@ export const login = async (req: Request, res: Response) => {
       });
     }
 
+    // Check if 2FA is required
+    if (result.requiresTwoFactor) {
+      return res.status(200).json({
+        success: true,
+        requiresTwoFactor: true,
+        userId: result.userId,
+        message: result.message,
+      });
+    }
+
+    // Regular login without 2FA
     return res.status(200).json({
       success: true,
       message: result.message,
@@ -221,5 +232,36 @@ export const getProfile = async (req: AuthenticatedRequest, res: Response) => {
   } catch (error) {
     logger.error('Error in get profile controller:', error);
     return res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+export const completeTwoFactorLogin = async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.body;
+
+    if (!userId) {
+      return res.status(400).json({ success: false, message: 'User ID is required' });
+    }
+
+    const sessionInfo = getSessionInfo(req);
+    const result = await AuthService.completeTwoFactorLogin(userId, sessionInfo);
+
+    if (!result.success) {
+      return res.status(400).json({ success: false, message: result.message });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: result.message,
+      user: result.user,
+      tokens: {
+        accessToken: result.tokens?.accessToken,
+        refreshToken: result.tokens?.refreshToken,
+        expiresIn: result.tokens?.expiresIn,
+      },
+    });
+  } catch (error) {
+    logger.error('Error in completeTwoFactorLogin controller:', error);
+    return res.status(500).json({ success: false, message: 'Internal server error' });
   }
 }; 

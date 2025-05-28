@@ -7,6 +7,7 @@ const router = express.Router();
 // Public routes
 router.post('/register', authController.register);
 router.post('/login', authController.login);
+router.post('/complete-2fa-login', authController.completeTwoFactorLogin);
 router.post('/refresh-token', authController.refreshToken);
 router.post('/logout', authController.logout);
 

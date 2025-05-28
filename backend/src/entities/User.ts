@@ -47,6 +47,18 @@ export class User {
   lastLogin!: Date | null;
 
   // ─────────────────────────────────────────────
+  // 2FA Fields
+  // ─────────────────────────────────────────────
+  @Column({ type: 'varchar', length: 255, nullable: true })
+  twoFactorSecret!: string | null;
+
+  @Column({ type: 'boolean', default: false })
+  twoFactorEnabled!: boolean;
+
+  @Column({ type: 'text', nullable: true })
+  twoFactorBackupCodes!: string | null; // JSON string of backup codes
+
+  // ─────────────────────────────────────────────
   // Relations
   // ─────────────────────────────────────────────
   @OneToMany(() => Referee, (referee) => referee.user)

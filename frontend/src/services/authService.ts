@@ -20,6 +20,8 @@ export interface AuthResponse {
   message: string;
   user?: User;
   tokens?: TokenPair;
+  requiresTwoFactor?: boolean;
+  userId?: number;
 }
 
 export interface LoginData {

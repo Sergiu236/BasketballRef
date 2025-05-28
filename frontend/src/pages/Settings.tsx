@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TwoFactorSetup from '../components/TwoFactorSetup';
 import { getCurrentUser, isAuthenticated } from '../services/authService';
-import '../styles/auth.css';
+import '../styles/settings.css';
 
 const Settings: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'profile' | '2fa' | 'sessions'>('profile');
@@ -17,59 +17,63 @@ const Settings: React.FC = () => {
   }, [navigate]);
 
   if (!user) {
-    return <div>Loading...</div>;
+    return (
+      <div className="settings-loading">
+        <div className="settings-spinner"></div>
+      </div>
+    );
   }
 
   const renderTabContent = () => {
     switch (activeTab) {
       case 'profile':
         return (
-          <div className="space-y-6">
-            <h3 className="text-lg font-semibold">Profile Information</h3>
-            <div className="bg-white p-6 rounded-lg border">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+          <div className="settings-profile-section">
+            <h3 className="settings-profile-title">👤 Profile Information</h3>
+            <div className="settings-profile-card">
+              <div className="settings-profile-grid">
+                <div className="settings-input-group">
+                  <label className="settings-input-label">
                     Username
                   </label>
                   <input
                     type="text"
                     value={user.username}
                     disabled
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50"
+                    className="settings-input"
                   />
                 </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                <div className="settings-input-group">
+                  <label className="settings-input-label">
                     Email
                   </label>
                   <input
                     type="email"
                     value={user.email}
                     disabled
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50"
+                    className="settings-input"
                   />
                 </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                <div className="settings-input-group">
+                  <label className="settings-input-label">
                     Role
                   </label>
                   <input
                     type="text"
                     value={user.role}
                     disabled
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50"
+                    className="settings-input"
                   />
                 </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                <div className="settings-input-group">
+                  <label className="settings-input-label">
                     Member Since
                   </label>
                   <input
                     type="text"
                     value={new Date(user.createdAt).toLocaleDateString()}
                     disabled
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50"
+                    className="settings-input"
                   />
                 </div>
               </div>
@@ -78,21 +82,25 @@ const Settings: React.FC = () => {
         );
       
       case '2fa':
-        return <TwoFactorSetup />;
+        return (
+          <div className="settings-2fa-section">
+            <TwoFactorSetup />
+          </div>
+        );
       
       case 'sessions':
         return (
-          <div className="space-y-6">
-            <h3 className="text-lg font-semibold">Session Management</h3>
-            <div className="bg-white p-6 rounded-lg border">
-              <p className="text-gray-600 mb-4">
-                Manage your active sessions and devices.
+          <div className="settings-sessions-section">
+            <h3 className="settings-sessions-title">🔐 Session Management</h3>
+            <div className="settings-sessions-card">
+              <p className="settings-sessions-description">
+                Manage your active sessions and devices. View all logged-in devices and revoke access when needed.
               </p>
               <button
                 onClick={() => navigate('/sessions')}
-                className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+                className="settings-button"
               >
-                View Session Management
+                🖥️ View Session Management
               </button>
             </div>
           </div>
@@ -104,52 +112,42 @@ const Settings: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Settings</h1>
-          <p className="text-gray-600 mt-2">Manage your account settings and preferences</p>
+    <div className="settings-container">
+      <div className="settings-content-wrapper">
+        {/* Header */}
+        <div className="settings-header-card">
+          <h1 className="settings-title">Settings</h1>
+          <p className="settings-subtitle">Manage your account settings and preferences</p>
         </div>
 
-        <div className="bg-white rounded-lg shadow">
+        {/* Main Card with Tabs */}
+        <div className="settings-main-card">
           {/* Tab Navigation */}
-          <div className="border-b border-gray-200">
-            <nav className="flex space-x-8 px-6">
+          <div className="settings-tab-nav">
+            <nav>
               <button
                 onClick={() => setActiveTab('profile')}
-                className={`py-4 px-1 border-b-2 font-medium text-sm ${
-                  activeTab === 'profile'
-                    ? 'border-blue-500 text-blue-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                }`}
+                className={`settings-tab-button ${activeTab === 'profile' ? 'active' : ''}`}
               >
-                Profile
+                👤 Profile
               </button>
               <button
                 onClick={() => setActiveTab('2fa')}
-                className={`py-4 px-1 border-b-2 font-medium text-sm ${
-                  activeTab === '2fa'
-                    ? 'border-blue-500 text-blue-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                }`}
+                className={`settings-tab-button ${activeTab === '2fa' ? 'active' : ''}`}
               >
-                Two-Factor Authentication
+                🔐 Two-Factor Authentication
               </button>
               <button
                 onClick={() => setActiveTab('sessions')}
-                className={`py-4 px-1 border-b-2 font-medium text-sm ${
-                  activeTab === 'sessions'
-                    ? 'border-blue-500 text-blue-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                }`}
+                className={`settings-tab-button ${activeTab === 'sessions' ? 'active' : ''}`}
               >
-                Sessions
+                🖥️ Sessions
               </button>
             </nav>
           </div>
 
           {/* Tab Content */}
-          <div className="p-6">
+          <div className="settings-tab-content">
             {renderTabContent()}
           </div>
         </div>

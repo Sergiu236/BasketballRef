@@ -9,6 +9,7 @@ import RefereeDetails from './pages/RefereeDetails';
 import StatisticsPage from './pages/StatisticsPage';
 import FileManagement from './pages/FileManagement';
 import SessionManagement from './pages/SessionManagement';
+import Settings from './pages/Settings';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import AdminDashboard from './pages/AdminDashboard';
@@ -51,6 +52,7 @@ const App: React.FC = () => {
         <Route path="statistics" element={<StatisticsPage />} />
         <Route path="files" element={<FileManagement />} />
         <Route path="sessions" element={<SessionManagement />} />
+        <Route path="settings" element={<Settings />} />
 
         {/* Admin only routes */}
         <Route path="admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />

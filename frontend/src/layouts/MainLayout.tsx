@@ -1,7 +1,7 @@
 // src/layouts/MainLayout.tsx
 import React, { useState, useEffect } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { FaHome, FaShieldAlt, FaSignOutAlt, FaUserCog } from 'react-icons/fa'; // Add logout and session icons
+import { FaHome, FaShieldAlt, FaSignOutAlt, FaUserCog, FaCog } from 'react-icons/fa'; // Add logout, session, and settings icons
 import { isAdmin, logout, getCurrentUser } from '../services/authService'; // Import logout and getCurrentUser
 import './MainLayout.css';
 
@@ -60,6 +60,9 @@ const MainLayout: React.FC = () => {
           <Link to="/files" onClick={handleLinkClick}>File Management</Link>
           <Link to="/sessions" onClick={handleLinkClick}>
             <FaUserCog /> Session Management
+          </Link>
+          <Link to="/settings" onClick={handleLinkClick}>
+            <FaCog /> Settings
           </Link>
           
           {/* Admin links - only shown for admin users */}

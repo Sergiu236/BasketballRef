@@ -45,7 +45,7 @@ const Login: React.FC = () => {
     }
   };
 
-  const handleTwoFactorSuccess = (user: any, tokens: any) => {
+  const handleTwoFactorSuccess = () => {
     // Navigation will be handled by the auth state change
     navigate('/');
   };

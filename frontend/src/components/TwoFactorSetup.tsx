@@ -7,11 +7,7 @@ import {
   regenerateBackupCodes,
 } from '../services/twoFactorService';
 
-interface TwoFactorSetupProps {
-  onClose?: () => void;
-}
-
-const TwoFactorSetup: React.FC<TwoFactorSetupProps> = ({ onClose }) => {
+const TwoFactorSetup: React.FC = () => {
   const [status, setStatus] = useState({ enabled: false, hasSecret: false });
   const [loading, setLoading] = useState(true);
   const [setupData, setSetupData] = useState<{

@@ -160,25 +160,48 @@ export class TwoFactorService {
    */
   static async verifyTwoFactor(userId: number, token: string): Promise<TwoFactorVerificationResult> {
     try {
+      console.log(`🔧 [2FA SERVICE] verifyTwoFactor called for userId: ${userId}, token: ${token}`);
+      
       const userRepository = this.getUserRepository();
+      console.log('🔧 [2FA SERVICE] Got user repository');
+      
       const user = await userRepository.findOne({ where: { id: userId } });
+      console.log('🔧 [2FA SERVICE] User query result:', user ? 
+        `Found user - enabled: ${user.twoFactorEnabled}, hasSecret: ${!!user.twoFactorSecret}` : 
+        'User not found');
 
       if (!user || !user.twoFactorEnabled || !user.twoFactorSecret) {
+        console.log('❌ [2FA SERVICE] 2FA not enabled or secret missing');
         return {
           success: false,
           message: 'Two-factor authentication not enabled',
         };
       }
 
-      // First try TOTP verification
+      console.log('🔧 [2FA SERVICE] Attempting TOTP verification...');
+      console.log('🔧 [2FA SERVICE] Secret (first 10 chars):', user.twoFactorSecret.substring(0, 10) + '...');
+      console.log('🔧 [2FA SERVICE] Token received:', token);
+      console.log('🔧 [2FA SERVICE] Current server time:', new Date().toISOString());
+      
+      // First try TOTP verification with larger window for debugging
       const verified = speakeasy.totp.verify({
         secret: user.twoFactorSecret,
         encoding: 'base32',
         token,
-        window: 2,
+        window: 6, // Increased window for debugging (allows ±3 time steps)
       });
+      console.log(`🔧 [2FA SERVICE] TOTP verification result: ${verified}`);
+
+      // Also try generating current token for comparison
+      const currentToken = speakeasy.totp({
+        secret: user.twoFactorSecret,
+        encoding: 'base32'
+      });
+      console.log(`🔧 [2FA SERVICE] Current server-generated token: ${currentToken}`);
+      console.log(`🔧 [2FA SERVICE] Token match: ${token === currentToken}`);
 
       if (verified) {
+        console.log('✅ [2FA SERVICE] TOTP verification successful');
         await this.logTwoFactorAction(userId, LogAction.READ, 'Two-factor authentication verified with TOTP');
         return {
           success: true,
@@ -186,9 +209,13 @@ export class TwoFactorService {
         };
       }
 
+      console.log('🔧 [2FA SERVICE] TOTP failed, trying backup codes...');
       // If TOTP fails, try backup codes
       const backupCodeResult = await this.verifyBackupCode(userId, token);
+      console.log('🔧 [2FA SERVICE] Backup code verification result:', backupCodeResult);
+      
       if (backupCodeResult.success) {
+        console.log('✅ [2FA SERVICE] Backup code verification successful');
         return {
           success: true,
           message: 'Two-factor authentication verified with backup code',
@@ -196,12 +223,14 @@ export class TwoFactorService {
         };
       }
 
+      console.log('❌ [2FA SERVICE] Both TOTP and backup code verification failed');
       await this.logTwoFactorAction(userId, LogAction.READ, 'Two-factor authentication verification failed');
       return {
         success: false,
         message: 'Invalid verification code',
       };
     } catch (error) {
+      console.error('💥 [2FA SERVICE] Error in verifyTwoFactor:', error);
       logger.error('Error verifying 2FA:', error);
       return {
         success: false,

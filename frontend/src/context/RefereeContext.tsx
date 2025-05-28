@@ -170,8 +170,8 @@ export const RefereeProvider: React.FC<Props> = ({ children }) => {
   useEffect(() => {
     async function checkServer() {
       try {
-        // Use the health endpoint that doesn't require authentication
-        const resp = await fetch(`${config.API_URL}/api/referees/health`);
+        // Use the main health endpoint that doesn't require authentication
+        const resp = await fetch(`${config.API_URL}/api/health`);
         setServerUp(resp.ok);
         // Don't set isOnline based on server health - keep it based on navigator.onLine
       } catch (err) {

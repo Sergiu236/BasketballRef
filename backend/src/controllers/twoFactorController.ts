@@ -85,27 +85,44 @@ export const enableTwoFactor = async (req: AuthenticatedRequest, res: Response) 
  */
 export const verifyTwoFactor = async (req: Request, res: Response) => {
   try {
+    console.log('🔧 [2FA CONTROLLER] verifyTwoFactor called');
+    console.log('🔧 [2FA CONTROLLER] Request body:', req.body);
+    
     const { userId, token } = req.body;
 
     if (!userId || !token) {
+      console.log('❌ [2FA CONTROLLER] Missing userId or token');
       return res.status(400).json({ success: false, message: 'User ID and token are required' });
     }
 
+    console.log(`🔧 [2FA CONTROLLER] Verifying 2FA for userId: ${userId}, token: ${token}`);
+
     // First verify the 2FA token
+    console.log('🔧 [2FA CONTROLLER] Calling TwoFactorService.verifyTwoFactor...');
     const verificationResult = await TwoFactorService.verifyTwoFactor(userId, token);
+    console.log('🔧 [2FA CONTROLLER] TwoFactorService.verifyTwoFactor result:', verificationResult);
 
     if (!verificationResult.success) {
+      console.log('❌ [2FA CONTROLLER] 2FA verification failed:', verificationResult.message);
       return res.status(400).json({ success: false, message: verificationResult.message });
     }
 
+    console.log('✅ [2FA CONTROLLER] 2FA verification successful, completing login...');
+
     // If 2FA verification successful, complete the login
     const sessionInfo = getSessionInfo(req);
+    console.log('🔧 [2FA CONTROLLER] Session info:', sessionInfo);
+    console.log('🔧 [2FA CONTROLLER] Calling AuthService.completeTwoFactorLogin...');
+    
     const loginResult = await AuthService.completeTwoFactorLogin(userId, sessionInfo);
+    console.log('🔧 [2FA CONTROLLER] AuthService.completeTwoFactorLogin result:', loginResult);
 
     if (!loginResult.success) {
+      console.log('❌ [2FA CONTROLLER] Failed to complete login after 2FA verification:', loginResult.message);
       return res.status(500).json({ success: false, message: 'Failed to complete login after 2FA verification' });
     }
 
+    console.log('✅ [2FA CONTROLLER] Login completed successfully, sending response');
     return res.status(200).json({
       success: true,
       message: loginResult.message,
@@ -118,6 +135,7 @@ export const verifyTwoFactor = async (req: Request, res: Response) => {
       backupCodeUsed: verificationResult.backupCodeUsed,
     });
   } catch (error) {
+    console.error('💥 [2FA CONTROLLER] Error in verifyTwoFactor controller:', error);
     logger.error('Error in verifyTwoFactor controller:', error);
     return res.status(500).json({ success: false, message: 'Internal server error' });
   }

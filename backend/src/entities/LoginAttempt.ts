@@ -22,7 +22,7 @@ export class LoginAttempt {
   @Column({ type: 'varchar', length: 500, nullable: true })
   userAgent!: string | null;
 
-  @Column({ type: 'bit', default: 0 })
+  @Column({ type: 'boolean', default: false })
   successful!: boolean;
 
   @Column({ type: 'varchar', length: 255, nullable: true })

@@ -38,7 +38,7 @@ export class UserSession {
   @Column({ type: 'timestamp' })
   expiresAt!: Date;
 
-  @Column({ type: 'bit', default: 1 })
+  @Column({ type: 'boolean', default: true })
   isActive!: boolean;
 
   @Column({ type: 'timestamp', nullable: true })

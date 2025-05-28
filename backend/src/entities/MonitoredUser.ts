@@ -28,7 +28,7 @@ export class MonitoredUser {
   @Column()
   timeWindow!: number; // time window in minutes
 
-  @Column({ type: 'bit', default: 1 })
+  @Column({ type: 'boolean', default: true })
   isActive!: boolean;
 
   @Column({ type: 'timestamp', nullable: true })

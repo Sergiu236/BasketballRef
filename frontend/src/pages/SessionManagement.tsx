@@ -147,7 +147,7 @@ const SessionManagement: React.FC = () => {
             </div>
           ) : (
             <div>
-              {sessions.map((session, index) => (
+              {sessions.map((session) => (
                 <div key={session.id} className="session-card">
                   <div className="session-card-content">
                     <div className="session-card-main">

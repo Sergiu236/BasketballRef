@@ -1,7 +1,7 @@
 // src/config.ts
 
 // Change this IP address when moving to a different network
-const IP_ADDRESS = '192.168.1.12';
+const IP_ADDRESS = '192.168.189.243';
 const PORT = 3001;
 
 const config = {

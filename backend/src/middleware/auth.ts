@@ -1,9 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
+import { AuthService } from '../services/authService';
 import { UserRole } from '../entities/User';
 import { logger } from '../utils/logger';
-
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 
 // Extended Request interface to include user property
 export interface AuthenticatedRequest extends Request {
@@ -11,10 +9,11 @@ export interface AuthenticatedRequest extends Request {
     id: number;
     username: string;
     role: string;
+    sessionId?: number;
   };
 }
 
-export const authenticateToken = (
+export const authenticateToken = async (
   req: AuthenticatedRequest,
   res: Response,
   next: NextFunction
@@ -27,14 +26,14 @@ export const authenticateToken = (
       return res.status(401).json({ error: 'Authentication required' });
     }
 
-    jwt.verify(token, JWT_SECRET, (err, decoded) => {
-      if (err) {
-        return res.status(403).json({ error: 'Invalid or expired token' });
-      }
+    const decoded = await AuthService.verifyAccessToken(token);
+    
+    if (!decoded) {
+      return res.status(403).json({ error: 'Invalid or expired token' });
+    }
 
-      req.user = decoded as { id: number; username: string; role: string };
-      next();
-    });
+    req.user = decoded;
+    next();
   } catch (error) {
     logger.error('Authentication error:', error);
     return res.status(500).json({ error: 'Internal server error' });

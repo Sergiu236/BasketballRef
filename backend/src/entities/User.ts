@@ -10,6 +10,7 @@ import { Referee } from './Referee';
 import { Log } from './Log';
 import { Game } from './Game';
 import { MonitoredUser } from './MonitoredUser';
+import { UserSession } from './UserSession';
 
 export enum UserRole {
   REGULAR = 'Regular',
@@ -65,4 +66,7 @@ export class User {
 
   @OneToMany(() => MonitoredUser, (monitoredUser) => monitoredUser.resolvedByUser)
   resolvedMonitorings!: MonitoredUser[];
+
+  @OneToMany(() => UserSession, (session) => session.user)
+  sessions!: UserSession[];
 } 

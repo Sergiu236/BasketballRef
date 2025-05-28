@@ -11,6 +11,7 @@ import { initWebSocket, broadcastEvent, attachGeneratorWorker } from './websocke
 import fileRoutes from './routes/fileRoutes';
 import config from './config';
 import { MonitoringService } from './services/monitoringService';
+import { AuthService } from './services/authService';
 
 // Re-export the AppDataSource for use in services
 export const dataSource = AppDataSource;
@@ -160,6 +161,13 @@ AppDataSource.initialize()
     // Start the monitoring service
     MonitoringService.startMonitoring(60000); // Check every minute
     console.log('✅ User activity monitoring service started');
+
+    // Start session cleanup service
+    const sessionCleanupInterval = parseInt(process.env.SESSION_CLEANUP_INTERVAL || '3600000'); // 1 hour default
+    setInterval(() => {
+      AuthService.cleanupExpiredSessions();
+    }, sessionCleanupInterval);
+    console.log('✅ Session cleanup service started');
 
     // ────────────────────────────────────────────────────────────────────────
     // 3d) Graceful shutdown

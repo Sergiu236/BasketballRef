@@ -7,6 +7,8 @@ import { Game }       from '../entities/Game';
 import { User }       from '../entities/User';
 import { Log }        from '../entities/Log';
 import { MonitoredUser } from '../entities/MonitoredUser';
+import { UserSession } from '../entities/UserSession';
+import { LoginAttempt } from '../entities/LoginAttempt';
 
 // Configuration for different environments
 const isProduction = process.env.NODE_ENV === 'production';
@@ -19,7 +21,7 @@ if (isProduction) {
     type: 'postgres',
     url: process.env.DATABASE_URL,
     ssl: { rejectUnauthorized: false },
-    entities: [Referee, Game, User, Log, MonitoredUser],
+    entities: [Referee, Game, User, Log, MonitoredUser, UserSession, LoginAttempt],
     synchronize: true,
     logging: false,
   };
@@ -37,7 +39,10 @@ if (isProduction) {
     // pass the raw ODBC connection options directly to the driver
     extra: {
       connectionString: [
-        'DSN=BasketballRefDB2;',
+        'Driver={ODBC Driver 17 for SQL Server};',
+        'Server=NastyCash\\SQLEXPRESS;',
+        'Database=BasketballRefDB;',
+        'Trusted_Connection=yes;',
         'TrustServerCertificate=Yes;'
       ].join(''),
       
@@ -50,9 +55,9 @@ if (isProduction) {
       }
     },
     
-    entities: [Referee, Game, User, Log, MonitoredUser],
+    entities: [Referee, Game, User, Log, MonitoredUser, UserSession, LoginAttempt],
     synchronize: false,   // dezactivăm sincronizarea automată pentru a evita conflicte cu structura existentă
-    logging: false,
+    logging: true,        // activez logging-ul pentru a vedea query-urile
   };
 }
 

@@ -1,0 +1,6 @@
+USE CarDealer;
+DROP DATABASE StockApp_DB;
+GO
+
+CREATE DATABASE StockApp_DB;
+GO

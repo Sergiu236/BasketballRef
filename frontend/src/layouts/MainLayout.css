@@ -37,8 +37,54 @@ html, body {
   user-select: none;
 }
 
+/* User info section */
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  margin-top: 1rem;
+}
+
+.sidebar.open .user-info {
+  opacity: 1;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #8a4baf 0%, #5d3d8a 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.user-details {
+  text-align: center;
+}
+
+.username {
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: #2c2c54;
+}
+
+.user-role {
+  font-size: 0.7rem;
+  color: #6b46c1;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
 .sidebar-links {
-  margin-top: 2rem;
+  margin-top: 1rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -56,6 +102,9 @@ html, body {
   padding: 0.5rem 1rem;
   border-radius: 4px;
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .sidebar-links a:hover {
@@ -95,7 +144,7 @@ html, body {
   justify-content: center;
 }
 
-/* Bottom‑aligned home icon — raised above taskbar */
+/* Bottom‑aligned home icon and logout button */
 .sidebar-bottom {
   position: absolute;
   bottom: 3rem;
@@ -105,12 +154,28 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 0.5rem;
 }
 
 .sidebar-bottom a {
   color: #2c2c54;
   text-decoration: none;
   font-size: 1.5rem;
+}
+
+.logout-button {
+  background: none;
+  border: none;
+  color: #dc2626;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.logout-button:hover {
+  background-color: rgba(220, 38, 38, 0.1);
 }
 
 .main-content {

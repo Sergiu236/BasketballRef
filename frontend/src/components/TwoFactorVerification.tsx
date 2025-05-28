@@ -40,7 +40,7 @@ const TwoFactorVerification: React.FC<TwoFactorVerificationProps> = ({
         localStorage.setItem('user_data', JSON.stringify(result.user));
         
         // Dispatch auth event to notify components
-        window.dispatchEvent(new Event('auth-change'));
+        window.dispatchEvent(new Event('auth_state_changed'));
         
         onSuccess(result.user, result.tokens);
         

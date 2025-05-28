@@ -368,43 +368,53 @@ export class AuthService {
   /**
    * Generate token pair and create session
    */
-  private static async generateTokens(user: User, sessionInfo: SessionInfo): Promise<TokenPair> {
-    const refreshToken = crypto.randomBytes(64).toString('hex');
-    
-    // Create session
-    const session = new UserSession();
-    session.userId = user.id;
-    session.refreshToken = refreshToken;
-    session.deviceInfo = sessionInfo.deviceInfo || null;
-    session.ipAddress = sessionInfo.ipAddress || null;
-    session.userAgent = sessionInfo.userAgent || null;
-    session.expiresAt = new Date(Date.now() + this.parseTimeToMs(JWT_REFRESH_EXPIRES_IN));
-    session.lastUsedAt = new Date();
+  private static async generateTokens(user: User, sessionInfo: SessionInfo = {}): Promise<TokenPair> {
+    try {
+      // TEMPORARY FIX: Use shorter refresh token to avoid PostgreSQL column limit (100 chars)
+      const refreshToken = crypto.randomBytes(32).toString('hex'); // 64 characters
+      
+      console.log(`🔧 [AUTH] Generated refresh token length: ${refreshToken.length}`);
+      
+      // Create session first
+      const session = new UserSession();
+      session.userId = user.id;
+      session.refreshToken = refreshToken;
+      session.deviceInfo = sessionInfo.deviceInfo || null;
+      session.ipAddress = sessionInfo.ipAddress || null;
+      session.userAgent = sessionInfo.userAgent || null;
+      session.expiresAt = new Date(Date.now() + this.parseTimeToMs(JWT_REFRESH_EXPIRES_IN));
+      session.lastUsedAt = new Date();
 
-    const sessionRepository = this.getSessionRepository();
-    const savedSession = await sessionRepository.save(session);
+      const sessionRepository = this.getSessionRepository();
+      const savedSession = await sessionRepository.save(session);
 
-    // Generate access token with session ID
-    const accessToken = jwt.sign(
-      { 
-        id: user.id, 
-        username: user.username, 
-        role: user.role,
-        sessionId: savedSession.id
-      },
-      JWT_SECRET,
-      { expiresIn: JWT_EXPIRES_IN }
-    );
+      // Generate access token with session ID
+      const accessToken = jwt.sign(
+        { 
+          id: user.id, 
+          username: user.username,
+          role: user.role,
+          sessionId: savedSession.id
+        },
+        JWT_SECRET,
+        { expiresIn: JWT_EXPIRES_IN }
+      );
 
-    // Update session with access token
-    savedSession.accessToken = accessToken;
-    await sessionRepository.save(savedSession);
+      console.log(`🔧 [AUTH] Generated access token length: ${accessToken.length}`);
 
-    return {
-      accessToken,
-      refreshToken,
-      expiresIn: JWT_EXPIRES_IN,
-    };
+      // Update session with access token
+      savedSession.accessToken = accessToken;
+      await sessionRepository.save(savedSession);
+
+      return {
+        accessToken,
+        refreshToken,
+        expiresIn: JWT_EXPIRES_IN,
+      };
+    } catch (error) {
+      logger.error('Error generating tokens:', error);
+      throw new Error('Failed to generate authentication tokens');
+    }
   }
 
   /**

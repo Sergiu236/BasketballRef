@@ -17,16 +17,25 @@ function getSessionInfo(req: Request) {
  */
 export const generateSetup = async (req: AuthenticatedRequest, res: Response) => {
   try {
+    console.log('🔧 [2FA DEBUG] generateSetup called');
+    console.log('🔧 [2FA DEBUG] User from request:', req.user);
+    console.log('🔧 [2FA DEBUG] Request headers:', req.headers);
+    
     if (!req.user) {
+      console.log('❌ [2FA DEBUG] No user in request - authentication failed');
       return res.status(401).json({ success: false, message: 'Authentication required' });
     }
 
+    console.log(`🔧 [2FA DEBUG] Generating setup for user ID: ${req.user.id}`);
     const result = await TwoFactorService.generateSetup(req.user.id);
+    console.log('🔧 [2FA DEBUG] TwoFactorService.generateSetup result:', result);
 
     if (!result.success) {
+      console.log('❌ [2FA DEBUG] Setup generation failed:', result.message);
       return res.status(400).json({ success: false, message: result.message });
     }
 
+    console.log('✅ [2FA DEBUG] Setup generation successful, sending response');
     return res.status(200).json({
       success: true,
       message: result.message,
@@ -34,6 +43,7 @@ export const generateSetup = async (req: AuthenticatedRequest, res: Response) =>
       backupCodes: result.backupCodes,
     });
   } catch (error) {
+    console.error('💥 [2FA DEBUG] Error in generateSetup controller:', error);
     logger.error('Error in generateSetup controller:', error);
     return res.status(500).json({ success: false, message: 'Internal server error' });
   }
@@ -149,18 +159,26 @@ export const disableTwoFactor = async (req: AuthenticatedRequest, res: Response)
  */
 export const getTwoFactorStatus = async (req: AuthenticatedRequest, res: Response) => {
   try {
+    console.log('🔧 [2FA DEBUG] getTwoFactorStatus called');
+    console.log('🔧 [2FA DEBUG] User from request:', req.user);
+    
     if (!req.user) {
+      console.log('❌ [2FA DEBUG] No user in request - authentication failed');
       return res.status(401).json({ success: false, message: 'Authentication required' });
     }
 
+    console.log(`🔧 [2FA DEBUG] Getting status for user ID: ${req.user.id}`);
     const status = await TwoFactorService.getTwoFactorStatus(req.user.id);
+    console.log('🔧 [2FA DEBUG] TwoFactorService.getTwoFactorStatus result:', status);
 
+    console.log('✅ [2FA DEBUG] Status retrieved successfully, sending response');
     return res.status(200).json({
       success: true,
       enabled: status.enabled,
       hasSecret: status.hasSecret,
     });
   } catch (error) {
+    console.error('💥 [2FA DEBUG] Error in getTwoFactorStatus controller:', error);
     logger.error('Error in getTwoFactorStatus controller:', error);
     return res.status(500).json({ success: false, message: 'Internal server error' });
   }

@@ -34,37 +34,60 @@ export class TwoFactorService {
    */
   static async generateSetup(userId: number, appName: string = 'BasketballRef'): Promise<TwoFactorSetupResult> {
     try {
+      console.log(`🔧 [2FA SERVICE] generateSetup called for userId: ${userId}`);
+      
       const userRepository = this.getUserRepository();
+      console.log('🔧 [2FA SERVICE] Got user repository');
+      
       const user = await userRepository.findOne({ where: { id: userId } });
+      console.log('🔧 [2FA SERVICE] User query result:', user ? `Found user: ${user.username}` : 'User not found');
 
       if (!user) {
+        console.log('❌ [2FA SERVICE] User not found in database');
         return {
           success: false,
           message: 'User not found',
         };
       }
 
+      console.log('🔧 [2FA SERVICE] Generating speakeasy secret...');
       // Generate secret
       const secret = speakeasy.generateSecret({
         name: `${appName} (${user.username})`,
         issuer: appName,
         length: 32,
       });
+      console.log('🔧 [2FA SERVICE] Secret generated successfully');
 
+      console.log('🔧 [2FA SERVICE] Generating QR code...');
       // Generate QR code
       const qrCodeUrl = await QRCode.toDataURL(secret.otpauth_url!);
+      console.log('🔧 [2FA SERVICE] QR code generated successfully');
 
+      console.log('🔧 [2FA SERVICE] Generating backup codes...');
       // Generate backup codes
       const backupCodes = this.generateBackupCodes();
+      console.log('🔧 [2FA SERVICE] Backup codes generated:', backupCodes.length, 'codes');
 
+      console.log('🔧 [2FA SERVICE] Updating user with 2FA data...');
       // Store the secret temporarily (not enabled yet)
       user.twoFactorSecret = secret.base32;
       user.twoFactorBackupCodes = JSON.stringify(backupCodes);
-      await userRepository.save(user);
+      
+      try {
+        await userRepository.save(user);
+        console.log('✅ [2FA SERVICE] User updated successfully with 2FA data');
+      } catch (dbError) {
+        console.error('💥 [2FA SERVICE] Database error saving user:', dbError);
+        throw dbError;
+      }
 
+      console.log('🔧 [2FA SERVICE] Logging 2FA action...');
       // Log the setup initiation
       await this.logTwoFactorAction(userId, LogAction.UPDATE, 'Two-factor authentication setup initiated');
+      console.log('✅ [2FA SERVICE] 2FA action logged successfully');
 
+      console.log('✅ [2FA SERVICE] generateSetup completed successfully');
       return {
         success: true,
         secret: secret.base32,
@@ -73,6 +96,7 @@ export class TwoFactorService {
         message: 'Two-factor authentication setup generated successfully',
       };
     } catch (error) {
+      console.error('💥 [2FA SERVICE] Error in generateSetup:', error);
       logger.error('Error generating 2FA setup:', error);
       return {
         success: false,
@@ -238,18 +262,33 @@ export class TwoFactorService {
    */
   static async getTwoFactorStatus(userId: number): Promise<{ enabled: boolean; hasSecret: boolean }> {
     try {
+      console.log(`🔧 [2FA SERVICE] getTwoFactorStatus called for userId: ${userId}`);
+      
       const userRepository = this.getUserRepository();
-      const user = await userRepository.findOne({ where: { id: userId } });
+      console.log('🔧 [2FA SERVICE] Got user repository');
+      
+      const user = await userRepository.findOne({ 
+        where: { id: userId },
+        select: ['id', 'twoFactorEnabled', 'twoFactorSecret']
+      });
+      console.log('🔧 [2FA SERVICE] User query result:', user ? 
+        `Found user - enabled: ${user.twoFactorEnabled}, hasSecret: ${!!user.twoFactorSecret}` : 
+        'User not found');
 
       if (!user) {
+        console.log('❌ [2FA SERVICE] User not found in getTwoFactorStatus');
         return { enabled: false, hasSecret: false };
       }
 
-      return {
-        enabled: user.twoFactorEnabled,
-        hasSecret: !!user.twoFactorSecret,
+      const result = {
+        enabled: user.twoFactorEnabled || false,
+        hasSecret: !!user.twoFactorSecret
       };
+      
+      console.log('✅ [2FA SERVICE] getTwoFactorStatus result:', result);
+      return result;
     } catch (error) {
+      console.error('💥 [2FA SERVICE] Error in getTwoFactorStatus:', error);
       logger.error('Error getting 2FA status:', error);
       return { enabled: false, hasSecret: false };
     }

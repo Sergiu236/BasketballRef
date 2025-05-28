@@ -35,12 +35,16 @@ export interface BackupCodesResponse {
  * Get the current user's 2FA status
  */
 export const getTwoFactorStatus = async (): Promise<TwoFactorStatusResponse> => {
+  console.log('🔧 [2FA API] getTwoFactorStatus called');
   const accessToken = localStorage.getItem('accessToken');
+  console.log('🔧 [2FA API] Access token:', accessToken ? 'Present' : 'Missing');
   
   if (!accessToken) {
+    console.log('❌ [2FA API] No access token found');
     throw new Error('Authentication required');
   }
 
+  console.log('🔧 [2FA API] Making request to:', `${config.API_URL}/api/2fa/status`);
   const response = await fetch(`${config.API_URL}/api/2fa/status`, {
     method: 'GET',
     headers: {
@@ -49,24 +53,34 @@ export const getTwoFactorStatus = async (): Promise<TwoFactorStatusResponse> => 
     },
   });
 
+  console.log('🔧 [2FA API] Response status:', response.status);
+  console.log('🔧 [2FA API] Response ok:', response.ok);
+
   if (!response.ok) {
     const errorData = await response.json();
+    console.error('💥 [2FA API] Error response:', errorData);
     throw new Error(errorData.message || 'Failed to get 2FA status');
   }
 
-  return await response.json();
+  const result = await response.json();
+  console.log('✅ [2FA API] getTwoFactorStatus success:', result);
+  return result;
 };
 
 /**
  * Generate 2FA setup (QR code and backup codes)
  */
 export const generateTwoFactorSetup = async (): Promise<TwoFactorSetupResponse> => {
+  console.log('🔧 [2FA API] generateTwoFactorSetup called');
   const accessToken = localStorage.getItem('accessToken');
+  console.log('🔧 [2FA API] Access token:', accessToken ? 'Present' : 'Missing');
   
   if (!accessToken) {
+    console.log('❌ [2FA API] No access token found');
     throw new Error('Authentication required');
   }
 
+  console.log('🔧 [2FA API] Making request to:', `${config.API_URL}/api/2fa/setup`);
   const response = await fetch(`${config.API_URL}/api/2fa/setup`, {
     method: 'POST',
     headers: {
@@ -75,12 +89,18 @@ export const generateTwoFactorSetup = async (): Promise<TwoFactorSetupResponse> 
     },
   });
 
+  console.log('🔧 [2FA API] Response status:', response.status);
+  console.log('🔧 [2FA API] Response ok:', response.ok);
+
   if (!response.ok) {
     const errorData = await response.json();
+    console.error('💥 [2FA API] Error response:', errorData);
     throw new Error(errorData.message || 'Failed to generate 2FA setup');
   }
 
-  return await response.json();
+  const result = await response.json();
+  console.log('✅ [2FA API] generateTwoFactorSetup success:', result);
+  return result;
 };
 
 /**

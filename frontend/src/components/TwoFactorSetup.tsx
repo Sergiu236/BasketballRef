@@ -26,10 +26,14 @@ const TwoFactorSetup: React.FC = () => {
 
   const loadStatus = async () => {
     try {
+      console.log('🔧 [2FA FRONTEND] loadStatus called');
       setLoading(true);
       const statusData = await getTwoFactorStatus();
+      console.log('🔧 [2FA FRONTEND] getTwoFactorStatus response:', statusData);
       setStatus(statusData);
+      console.log('✅ [2FA FRONTEND] Status loaded successfully');
     } catch (err) {
+      console.error('💥 [2FA FRONTEND] Error in loadStatus:', err);
       setError(err instanceof Error ? err.message : 'Failed to load 2FA status');
     } finally {
       setLoading(false);
@@ -38,12 +42,17 @@ const TwoFactorSetup: React.FC = () => {
 
   const handleGenerateSetup = async () => {
     try {
+      console.log('🔧 [2FA FRONTEND] handleGenerateSetup called - Enable 2FA button clicked');
       setLoading(true);
       setError(null);
+      console.log('🔧 [2FA FRONTEND] Calling generateTwoFactorSetup API...');
       const setup = await generateTwoFactorSetup();
+      console.log('🔧 [2FA FRONTEND] generateTwoFactorSetup response:', setup);
       setSetupData(setup);
       setStep('setup');
+      console.log('✅ [2FA FRONTEND] Setup generated successfully, changed step to setup');
     } catch (err) {
+      console.error('💥 [2FA FRONTEND] Error in handleGenerateSetup:', err);
       setError(err instanceof Error ? err.message : 'Failed to generate setup');
     } finally {
       setLoading(false);

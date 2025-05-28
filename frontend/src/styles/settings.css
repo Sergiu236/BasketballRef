@@ -236,6 +236,206 @@
   animation: slideInFromLeft 0.5s ease;
 }
 
+/* 2FA Button Styles */
+.settings-2fa-section .bg-blue-600 {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  border: none !important;
+  border-radius: 12px !important;
+  padding: 0.875rem 2rem !important;
+  font-weight: 600 !important;
+  font-size: 0.95rem !important;
+  color: white !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  position: relative !important;
+  overflow: hidden !important;
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3) !important;
+  text-transform: none !important;
+  letter-spacing: 0.5px !important;
+}
+
+.settings-2fa-section .bg-blue-600::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: -100% !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent) !important;
+  transition: left 0.5s ease !important;
+}
+
+.settings-2fa-section .bg-blue-600:hover::before {
+  left: 100% !important;
+}
+
+.settings-2fa-section .bg-blue-600:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4) !important;
+  background: linear-gradient(135deg, #7c8cff 0%, #8a5cb8 100%) !important;
+}
+
+.settings-2fa-section .bg-blue-600:active {
+  transform: translateY(0) !important;
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3) !important;
+}
+
+.settings-2fa-section .bg-blue-600:disabled {
+  opacity: 0.6 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2) !important;
+}
+
+/* Green buttons (for enabled state) */
+.settings-2fa-section .bg-green-600 {
+  background: linear-gradient(135deg, #48bb78 0%, #38a169 100%) !important;
+  border: none !important;
+  border-radius: 12px !important;
+  padding: 0.875rem 2rem !important;
+  font-weight: 600 !important;
+  font-size: 0.95rem !important;
+  color: white !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  position: relative !important;
+  overflow: hidden !important;
+  box-shadow: 0 8px 25px rgba(72, 187, 120, 0.3) !important;
+  text-transform: none !important;
+  letter-spacing: 0.5px !important;
+}
+
+.settings-2fa-section .bg-green-600:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 35px rgba(72, 187, 120, 0.4) !important;
+  background: linear-gradient(135deg, #68d391 0%, #48bb78 100%) !important;
+}
+
+/* Red buttons (for disable/danger actions) */
+.settings-2fa-section .bg-red-600 {
+  background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%) !important;
+  border: none !important;
+  border-radius: 12px !important;
+  padding: 0.875rem 2rem !important;
+  font-weight: 600 !important;
+  font-size: 0.95rem !important;
+  color: white !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  position: relative !important;
+  overflow: hidden !important;
+  box-shadow: 0 8px 25px rgba(245, 101, 101, 0.3) !important;
+  text-transform: none !important;
+  letter-spacing: 0.5px !important;
+}
+
+.settings-2fa-section .bg-red-600:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 35px rgba(245, 101, 101, 0.4) !important;
+  background: linear-gradient(135deg, #fc8181 0%, #f56565 100%) !important;
+}
+
+/* Gray buttons (for cancel/secondary actions) */
+.settings-2fa-section .bg-gray-300 {
+  background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e0 100%) !important;
+  border: none !important;
+  border-radius: 12px !important;
+  padding: 0.875rem 2rem !important;
+  font-weight: 600 !important;
+  font-size: 0.95rem !important;
+  color: #4a5568 !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  position: relative !important;
+  overflow: hidden !important;
+  box-shadow: 0 8px 25px rgba(160, 174, 192, 0.2) !important;
+  text-transform: none !important;
+  letter-spacing: 0.5px !important;
+}
+
+.settings-2fa-section .bg-gray-300:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 35px rgba(160, 174, 192, 0.3) !important;
+  background: linear-gradient(135deg, #edf2f7 0%, #e2e8f0 100%) !important;
+}
+
+/* 2FA Status Cards */
+.settings-2fa-section .bg-green-50 {
+  background: rgba(72, 187, 120, 0.1) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(72, 187, 120, 0.2) !important;
+  border-radius: 16px !important;
+}
+
+.settings-2fa-section .bg-yellow-50 {
+  background: rgba(237, 137, 54, 0.1) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(237, 137, 54, 0.2) !important;
+  border-radius: 16px !important;
+}
+
+.settings-2fa-section .bg-red-50 {
+  background: rgba(245, 101, 101, 0.1) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(245, 101, 101, 0.2) !important;
+  border-radius: 16px !important;
+}
+
+/* 2FA Input Fields */
+.settings-2fa-section input[type="text"],
+.settings-2fa-section input[type="password"] {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 12px !important;
+  padding: 0.875rem 1rem !important;
+  color: white !important;
+  font-size: 0.95rem !important;
+  transition: all 0.3s ease !important;
+}
+
+.settings-2fa-section input[type="text"]:focus,
+.settings-2fa-section input[type="password"]:focus {
+  outline: none !important;
+  border-color: rgba(102, 126, 234, 0.5) !important;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+}
+
+.settings-2fa-section input[type="text"]::placeholder,
+.settings-2fa-section input[type="password"]::placeholder {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* QR Code Container */
+.settings-2fa-section img {
+  border-radius: 16px !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.3s ease !important;
+}
+
+.settings-2fa-section img:hover {
+  transform: scale(1.02) !important;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Backup Codes Grid */
+.settings-2fa-section .grid-cols-2 > div {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 8px !important;
+  transition: all 0.3s ease !important;
+  color: white !important;
+  font-family: 'Courier New', monospace !important;
+  font-weight: 600 !important;
+}
+
+.settings-2fa-section .grid-cols-2 > div:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+  transform: translateY(-1px) !important;
+}
+
 /* Sessions Section */
 .settings-sessions-section {
   animation: slideInFromLeft 0.5s ease;

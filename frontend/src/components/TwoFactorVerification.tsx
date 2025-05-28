@@ -35,9 +35,9 @@ const TwoFactorVerification: React.FC<TwoFactorVerificationProps> = ({
       
       if (result.success && result.user && result.tokens) {
         // Save tokens to localStorage
-        localStorage.setItem('accessToken', result.tokens.accessToken);
-        localStorage.setItem('refreshToken', result.tokens.refreshToken);
-        localStorage.setItem('user', JSON.stringify(result.user));
+        localStorage.setItem('access_token', result.tokens.accessToken);
+        localStorage.setItem('refresh_token', result.tokens.refreshToken);
+        localStorage.setItem('user_data', JSON.stringify(result.user));
         
         // Dispatch auth event to notify components
         window.dispatchEvent(new Event('auth-change'));
